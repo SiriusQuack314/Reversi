@@ -13,17 +13,21 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ReversiApp extends Application
 {
 
-	Scene sceneInitial, sceneRegister, sceneSignIn, sceneStats, sceneConfig, sceneStart;
+	Scene sceneInitial, sceneRegister, sceneSignIn, sceneStats, sceneConfig, sceneGame;
 	private Cell board[][] = new Cell[8][8];
 	
 	
@@ -53,7 +57,7 @@ public class ReversiApp extends Application
 		btSignIn.setOnAction(e -> primaryStage.setScene(sceneSignIn));
 		btStats.setOnAction(e -> primaryStage.setScene(sceneStats));
 		btConfig.setOnAction(e -> primaryStage.setScene(sceneConfig));
-		btStart.setOnAction(e -> primaryStage.setScene(sceneStart));
+		btStart.setOnAction(e -> primaryStage.setScene(sceneGame));
 
 		
 		VBox paneInitial = new VBox(25); //the amount of vertical space between each child
@@ -74,13 +78,13 @@ public class ReversiApp extends Application
 		//Labels & Text fields
 		Label LbUsername = new Label("Username");		//Labels will be on left..
 		TextField TxUsername = new TextField();
-        TxUsername.setMaxWidth(250);
+      		TxUsername.setMaxWidth(250);
         
 		Label LbPassword = new Label("Password");
 		TextField TxPassword = new TextField();
-        TxPassword.setMaxWidth(250);
+       		TxPassword.setMaxWidth(250);
         
-        //Buttons
+      		//Buttons
 		Button btSubmitReg = new Button("Submit");
 		Button btBackReg = new Button("Back");
 		
@@ -107,13 +111,13 @@ public class ReversiApp extends Application
 		//Labels & Text fields
 		Label LbUsernameS = new Label("Username");		//Labels will be on left..
 		TextField TxUsernameS = new TextField ();
-        TxUsernameS.setMaxWidth(250);
+        	TxUsernameS.setMaxWidth(250);
         
 		Label LbPasswordS = new Label("Password");
 		TextField TxPasswordS = new TextField ();
-        TxPasswordS.setMaxWidth(250);
+        	TxPasswordS.setMaxWidth(250);
         
-        //Buttons
+        	//Buttons
 		Button btSubmitSign = new Button("Submit");
 		Button btBackSign = new Button("Back");
 		
@@ -224,15 +228,52 @@ public class ReversiApp extends Application
 				paneBoard.add(board[i][j] = new Cell(), j, i);
 			}
 		}
+	
+		
+		FlowPane panePlayers = new FlowPane();
+		panePlayers.setAlignment(Pos.CENTER);
+		panePlayers.setPadding(new Insets(20, 20, 20, 20));
+		panePlayers.setHgap(20);
+		
+		Label LbPlayer1 = new Label("Player1"); //temp name
+		Label LbPlayer2 = new Label("Player2"); //temp name
+		
+		Label LbPlayer1Score = new Label("0"); //temp var
+		Label LbPlayer2Score = new Label("0"); //temp var
+		
+		
+		Circle tokenBlack = new Circle();
+		tokenBlack.setRadius(15);
+		tokenBlack.setFill(Color.BLACK);
+
+		
+		Circle tokenWhite = new Circle();
+		tokenWhite.setRadius(15);
+		tokenWhite.setStroke(Color.BLACK);
+		tokenWhite.setFill(Color.WHITE);
+		
+		//This token is for spacing purposes
+		Circle tokenInvis = new Circle();
+		tokenInvis.setRadius(15);
+		tokenInvis.setStroke(Color.TRANSPARENT);
+		tokenInvis.setFill(Color.TRANSPARENT);
+		
+		LbPlayer1.setFont(new Font(20));
+		LbPlayer2.setFont(new Font(20));
+		LbPlayer1Score.setFont(new Font(20));
+		LbPlayer2Score.setFont(new Font(20));
+		
+		
+		panePlayers.getChildren().addAll(LbPlayer1, LbPlayer1Score, tokenBlack, tokenInvis, tokenWhite, LbPlayer2Score, LbPlayer2);
 		
 		
 		BorderPane paneGame = new BorderPane();
 		paneGame.setTop(paneButton);
 		paneGame.setCenter(paneBoard);
-		//players at bottom
+		paneGame.setBottom(panePlayers);
 		//timers at top
 		
-		sceneStart = new Scene(paneGame, 500, 500);
+		sceneGame = new Scene(paneGame, 500, 500);
 
 		/*
 		 * Creates the Initial Scene and places it in the stage
@@ -267,7 +308,7 @@ public class ReversiApp extends Application
 		
 		private void handleMouseClick()
 		{
-			//TO DO
+			System.out.println("Clicked!");
 		}
 	}
 }
