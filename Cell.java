@@ -50,10 +50,8 @@ public class Cell extends Pane
 
 	private void handleMouseClick()
 	{
-		System.out.print("Clicked ");
 		if (token == '+')
 		{
-			System.out.print("Valid");
 			if(Game.isBlacksTurn)
 			{
 				this.setToken('B');
