@@ -117,11 +117,55 @@ public class Board
 	 */
 	public static void updateValidMoves()
 	{
+		char a='W',b='B';
+		if(Game.isBlacksTurn==true)
+		{
+			a='B';
+			b='W';
+		}
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0;j<8;j++)
 			{
-				
+				if ( board[i][j].getToken() != ' ' )
+				{
+					if(board[i][j].getToken() == a)
+					{
+						if(board[i+1][j].getToken() == b)
+						{
+							board[i+2][j].setToken('W');   ///TO DO  CHANGING THE CELLS COLOR INSTEAD OF setToken.
+						}
+						if(board[i+1][j+1].getToken() == b)
+						{
+							board[i+2][j+2].setToken('W');
+						}
+						if(board[i][j+1].getToken() == b)
+						{
+							board[i][j+2].setToken('W');
+						}
+						if(i-2>0 && board[i-1][j+1].getToken() == b)
+						{
+							board[i-2][j+2].setToken('W');
+						}
+						if(i-2>0 && board[i-1][j].getToken() == b)
+						{
+							board[i-2][j].setToken('W');
+						}
+						if(i - 2 > 0 && j - 2 > 0 && board[i-1][j-1].getToken() == b)
+						{
+							board[i-2][j-2].setToken('W');
+						}
+						if(j - 2 > 0 && board[i][j-1].getToken() == b)
+						{
+							board[i][j-2].setToken('W');
+						}
+						if(j - 2 > 0 && board[i+1][j-1].getToken() == b)
+						{
+							board[i+2][j-2].setToken('W');
+						}
+							
+					}
+				}
 			}
 		}
 		
@@ -135,8 +179,65 @@ public class Board
 	 */
 	public static void updateBoard(int x, int y)
 	{
+		char b='W';
 		
+		if(board[x][y].getToken()=='B')
+		{
+			b='B';
+		}
 		
+		if(board[x][y+2].getToken()==b);
+		{
+			flipCoin(x,y+1);	/// TO DO FLIPCOIN() FUNCTION. 
+		}
+		if(board[x+2][y+2].getToken()==b);
+		{
+			flipCoin(x+1,y+1);
+		}
+		if(board[x-2][y+2].getToken()==b);
+		{
+			flipCoin(x-1,y+1);
+		}
+		if(board[x+2][y].getToken()==b);
+		{
+			flipCoin(x+1,y);
+		}
+		if(board[x-2][y].getToken()==b);
+		{
+			flipCoin(x-1,y);
+		}
+		if(board[x][y-2].getToken()==b);
+		{
+			flipCoin(x,y-1);
+		}
+		if(board[x+2][y-2].getToken()==b);
+		{
+			flipCoin(x+1,y-1);
+		}
+		if(board[x-2][y-2].getToken()==b);
+		{
+			flipCoin(x-1,y-1);
+		}
+
+	}
+	
+	
+	/*
+	 * Changes the color of the coin
+	 * 
+	 * 
+	 */
+	public static void flipCoin(int x, int y)
+	{
+		//// TO DO CHECK THE COIN'S COLOR WITH THE GIVEN COORDINATES.
+		//// THEN CHANGE IT COLOR TO THE OTHER COLOR.
+
 	}
 	
 }
+
+
+
+
+
+

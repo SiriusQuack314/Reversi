@@ -2,7 +2,10 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -192,7 +195,22 @@ public class GameUI
 	{
 		BorderPane paneResults = new BorderPane();
 		
-		//TO DO
+		int result[] = Board.calculateScores();
+		if(result[0]>result[1])
+		{
+			Alert a1 = new Alert(AlertType.NONE,"BLACK HAS WON !",ButtonType.APPLY); 
+			a1.show(); 
+		}
+		else if(result[1]>result[0])
+		{
+			Alert a1 = new Alert(AlertType.NONE,"WHITE HAS WON !",ButtonType.APPLY); 
+			a1.show(); 
+		}
+		else if(result[1]==result[0])
+		{
+			Alert a1 = new Alert(AlertType.NONE,"IT'S A TIE !",ButtonType.APPLY); 
+			a1.show(); 
+		}
 		
 		Scene sceneResults = new Scene(paneResults, 600, 600);
 		
