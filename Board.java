@@ -186,35 +186,35 @@ public class Board
 			b='B';
 		}
 		
-		if(board[x][y+2].getToken()==b);
+		if(board[x][y+2].getToken()==b)
 		{
 			flipCoin(x,y+1);	/// TO DO FLIPCOIN() FUNCTION. 
 		}
-		if(board[x+2][y+2].getToken()==b);
+		if(board[x+2][y+2].getToken()==b)
 		{
 			flipCoin(x+1,y+1);
 		}
-		if(board[x-2][y+2].getToken()==b);
+		if(board[x-2][y+2].getToken()==b)
 		{
 			flipCoin(x-1,y+1);
 		}
-		if(board[x+2][y].getToken()==b);
+		if(board[x+2][y].getToken()==b)
 		{
 			flipCoin(x+1,y);
 		}
-		if(board[x-2][y].getToken()==b);
+		if(board[x-2][y].getToken()==b)
 		{
 			flipCoin(x-1,y);
 		}
-		if(board[x][y-2].getToken()==b);
+		if(board[x][y-2].getToken()==b)
 		{
 			flipCoin(x,y-1);
 		}
-		if(board[x+2][y-2].getToken()==b);
+		if(board[x+2][y-2].getToken()==b)
 		{
 			flipCoin(x+1,y-1);
 		}
-		if(board[x-2][y-2].getToken()==b);
+		if(board[x-2][y-2].getToken()==b)
 		{
 			flipCoin(x-1,y-1);
 		}
@@ -231,6 +231,10 @@ public class Board
 	{
 		//// TO DO CHECK THE COIN'S COLOR WITH THE GIVEN COORDINATES.
 		//// THEN CHANGE IT COLOR TO THE OTHER COLOR.
+		if(board[x][y].getToken()=='W')
+			board[x][y].setToken('B');
+		else if(board[x][y].getToken()=='B')
+			board[x][y].setToken('W');
 
 	}
 	
