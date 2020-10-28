@@ -1,4 +1,4 @@
-import javafx.stage.Stage;
+
 
 public class Game
 {	
@@ -18,8 +18,6 @@ public class Game
 		new Board(); //set up board
 		updateScores(); //setting initial scores
 		
-	//	takeTurn();
-		
 	}
 	
 	public static void updateScores()
@@ -34,7 +32,6 @@ public class Game
 		Game.updateScores();
 		isBlacksTurn = !isBlacksTurn;
 		Board.updateValidMoves();
-		consecutivePasses = 0;
 		
 		if(Game.checkGameOver())
 		{
@@ -47,9 +44,13 @@ public class Game
 	
 	public static void passTurn()
 	{
-		if(!Board.hasValidMoves())
+	//	if(!Board.hasValidMoves())
 		{
 			consecutivePasses++;
+			if(consecutivePasses == 2)
+			{
+				quitGame();
+			}
 			isBlacksTurn = !isBlacksTurn;
 			GameUI.refresh(GameUI.primaryStage);
 		}		
@@ -57,7 +58,8 @@ public class Game
 	
 	public static void quitGame()
 	{
-		
+		Game.updateScores();
+		GameUI.showResults();
 	}
 	
 	/*
@@ -74,6 +76,19 @@ public class Game
 	public String toString()
 	{
 		return ""; //TBD
+	}
+
+	public static void quitGameByForfeit()
+	{
+		if(isBlacksTurn)
+		{
+			blackScore = Integer.MIN_VALUE;
+		}
+		else
+		{
+			whiteScore = Integer.MIN_VALUE;
+		}
+		GameUI.showResults();
 	}
 	
 }

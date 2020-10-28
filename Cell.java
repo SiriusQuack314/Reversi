@@ -1,5 +1,4 @@
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 public class Cell extends Pane
 {
@@ -22,20 +21,6 @@ public class Cell extends Pane
 		this.y = y;
 		
 		setStyle("-fx-border-color: black");
-		/*
-		if(token == ' ')
-		{
-			setStyle("-fx-border-color: black");
-		}
-		else if(token == '+')
-		{
-			setStyle("-fx-border-color: black; -fx-background-color: lightgreen");
-		}
-		else
-		{
-			setStyle("-fx-border-color: black");
-		}
-		*/
 		
 		this.setPrefSize(50, 50);
 		this.setOnMouseClicked(e -> handleMouseClick());
@@ -49,6 +34,18 @@ public class Cell extends Pane
 	public void setToken(char c)
 	{
 		token = c;	
+		if(token == ' ')
+		{
+			setStyle("-fx-border-color: black");
+		}
+		else if(token == '+')
+		{
+			setStyle("-fx-border-color: black; -fx-background-color: lightgreen");
+		}
+		else
+		{
+			setStyle("-fx-border-color: black");
+		}
 	}
 
 	private void handleMouseClick()
@@ -65,6 +62,7 @@ public class Cell extends Pane
 			{
 				this.setToken('W');
 			}
+			Game.consecutivePasses = 0;
 			Board.updateBoard(x, y);
 			Game.takeTurn();
 			
