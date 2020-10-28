@@ -26,6 +26,8 @@ public class Board
 
 			}
 		}
+		
+		updateValidMoves();
 
 	}
 
@@ -117,63 +119,25 @@ public class Board
 	 */
 	public static void updateValidMoves()
 	{
-		char a='W',b='B';
-		if(Game.isBlacksTurn==true)
+		
+		for(int x=0;x<8;x++)
 		{
-			a='B';
-			b='W';
-		}
-		for(int i=0;i<8;i++)
-		{
-			for(int j=0;j<8;j++)
+			for(int y=0;y<8;y++)
 			{
-				if ( board[i][j].getToken() != ' ' )
+				if(board[x][y].getToken() == 'B' || board[x][y].getToken() == 'W')
 				{
-					if(board[i][j].getToken() == a)
-					{
-						if(j + 2 < 8 && i + 2 < 8 && board[i+1][j].getToken() == b)
-						{
-							if(board[i+2][j].getToken()==' ')
-								board[i+2][j].setToken('W');   ///TO DO  CHANGING THE CELLS COLOR INSTEAD OF setToken.
-						}
-						if(j + 2 < 8 && i + 2 < 8 && board[i+1][j+1].getToken() == b)
-						{
-							if(board[i+2][j+2].getToken()==' ')
-								board[i+2][j+2].setToken('W');
-						}
-						if(j + 2 < 8 && board[i][j+1].getToken() == b)
-						{
-							if(board[i][j+2].getToken()==' ')
-								board[i][j+2].setToken('W');
-						}
-						if(i-2 > 0 && j + 2 < 0 && board[i-1][j+1].getToken() == b)
-						{
-							if(board[i-2][j+2].getToken()==' ')
-								board[i-2][j+2].setToken('W');
-						}
-						if(i-2 > 0 && board[i-1][j].getToken() == b)
-						{
-							if(board[i-2][j].getToken()==' ')
-								board[i-2][j].setToken('W');
-						}
-						if(i - 2 > 0 && j - 2 > 0 && board[i-1][j-1].getToken() == b)
-						{
-							if(board[i-2][j-2].getToken()==' ')
-								board[i-2][j-2].setToken('W');
-						}
-						if(j - 2 > 0 && board[i][j-1].getToken() == b)
-						{
-							if(board[i][j-2].getToken()==' ')
-								board[i][j-2].setToken('W');
-						}
-						if(i + 2 < 0 && j - 2 > 0 && board[i+1][j-1].getToken() == b)
-						{
-							if(board[i+2][j-2].getToken()==' ')
-								board[i+2][j-2].setToken('W');
-						}
-							
-					}
+					continue;
 				}
+				
+				if(isValidMove(x, y))
+				{
+					board[x][y].setToken('+');
+				}
+				else
+				{
+					board[x][y].setToken(' ');
+				}
+				
 			}
 		}
 		
@@ -187,63 +151,590 @@ public class Board
 	 */
 	public static void updateBoard(int x, int y)
 	{
-		char b='W';
+		char player;
+		char opp;
+		if(Game.isBlacksTurn)
+		{
+			player = 'B';
+			opp = 'W';
+		}
+		else
+		{
+			player = 'W';
+			opp = 'B';
+		}
+		int xInit = x;
+		int yInit = y;
+		boolean possibleCapture = false;
+		boolean hasCaptured = false;
 		
-		if(board[x][y].getToken()=='B')
+		while(--x>=0 && --y>= 0)
 		{
-			b='B';
+			if(board[x][y].getToken() == player)
+			{
+				if(possibleCapture)
+				{
+					hasCaptured = true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				possibleCapture = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
 		}
 		
-		if(board[x][y+2].getToken()==b)
+		if(hasCaptured)
 		{
-			flipCoin(x,y+1);	/// TO DO FLIPCOIN() FUNCTION. 
+			x = xInit;
+			y = yInit;
+			while(--x>=0 && --y>= 0)
+			{
+				if(board[x][y].getToken() == player)
+				{
+					break;
+				}
+				else if(board[x][y].getToken() == opp)
+				{
+					flipCoin(x, y);
+				}
+			}
 		}
-		if(board[x+2][y+2].getToken()==b)
+		
+		x = xInit;
+		y = yInit;
+		possibleCapture = false;
+		hasCaptured = false;
+		while(--x>=0)
 		{
-			flipCoin(x+1,y+1);
+			if(board[x][y].getToken() == player)
+			{
+				if(possibleCapture)
+				{
+					hasCaptured = true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				possibleCapture = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}	
+		if(hasCaptured)
+		{
+			x = xInit;
+			y = yInit;
+			while(--x>=0)
+			{
+				if(board[x][y].getToken() == player)
+				{
+					break;
+				}
+				else if(board[x][y].getToken() == opp)
+				{
+					flipCoin(x, y);
+				}
+			}
+		}	
+		x = xInit;
+		y = yInit;
+		possibleCapture = false;
+		hasCaptured = false;
+		while(--x>=0 && ++y<8)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(possibleCapture)
+				{
+					hasCaptured = true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				possibleCapture = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}	
+		if(hasCaptured)
+		{
+			x = xInit;
+			y = yInit;
+			while(--x>=0 && ++y<8)
+			{
+				if(board[x][y].getToken() == player)
+				{
+					break;
+				}
+				else if(board[x][y].getToken() == opp)
+				{
+					flipCoin(x, y);
+				}
+			}
+		}	
+		x = xInit;
+		y = yInit;
+		possibleCapture = false;
+		hasCaptured = false;
+		while(++x<8 && --y>=0)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(possibleCapture)
+				{
+					hasCaptured = true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				possibleCapture = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
 		}
-		if(board[x-2][y+2].getToken()==b)
+		if(hasCaptured)
 		{
-			flipCoin(x-1,y+1);
+			x = xInit;
+			y = yInit;
+			while(++x<8 && --y>=0)
+			{
+				if(board[x][y].getToken() == player)
+				{
+					break;
+				}
+				else if(board[x][y].getToken() == opp)
+				{
+					flipCoin(x, y);
+				}
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		possibleCapture = false;
+		hasCaptured = false;
+		while(++x<8)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(possibleCapture)
+				{
+					hasCaptured = true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				possibleCapture = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
 		}
-		if(board[x+2][y].getToken()==b)
+		if(hasCaptured)
 		{
-			flipCoin(x+1,y);
+			x = xInit;
+			y = yInit;
+			while(++x<8)
+			{
+				if(board[x][y].getToken() == player)
+				{
+					break;
+				}
+				else if(board[x][y].getToken() == opp)
+				{
+					flipCoin(x, y);
+				}
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		possibleCapture = false;
+		hasCaptured = false;
+		while(++x<8 && ++y<8)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(possibleCapture)
+				{
+					hasCaptured = true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				possibleCapture = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
 		}
-		if(board[x-2][y].getToken()==b)
+		if(hasCaptured)
 		{
-			flipCoin(x-1,y);
+			x = xInit;
+			y = yInit;
+			while(++x<8 && ++y<8)
+			{
+				if(board[x][y].getToken() == player)
+				{
+					break;
+				}
+				else if(board[x][y].getToken() == opp)
+				{
+					flipCoin(x, y);
+				}
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		possibleCapture = false;
+		hasCaptured = false;
+		while(--y>=0)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(possibleCapture)
+				{
+					hasCaptured = true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				possibleCapture = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
 		}
-		if(board[x][y-2].getToken()==b)
+		if(hasCaptured)
 		{
-			flipCoin(x,y-1);
+			x = xInit;
+			y = yInit;
+			while(--y>=0)
+			{
+				if(board[x][y].getToken() == player)
+				{
+					break;
+				}
+				else if(board[x][y].getToken() == opp)
+				{
+					flipCoin(x, y);
+				}
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		possibleCapture = false;
+		hasCaptured = false;
+		while(++y<8)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(possibleCapture)
+				{
+					hasCaptured = true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				possibleCapture = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
 		}
-		if(board[x+2][y-2].getToken()==b)
+		if(hasCaptured)
 		{
-			flipCoin(x+1,y-1);
-		}
-		if(board[x-2][y-2].getToken()==b)
-		{
-			flipCoin(x-1,y-1);
+			x = xInit;
+			y = yInit;
+			while(++y<8)
+			{
+				if(board[x][y].getToken() == player)
+				{
+					break;
+				}
+				else if(board[x][y].getToken() == opp)
+				{
+					flipCoin(x, y);
+				}
+			}
 		}
 
 	}
 	
 	
 	/*
-	 * Changes the color of the coin
-	 * 
-	 * 
+	 * Changes the color of the coin 
 	 */
 	public static void flipCoin(int x, int y)
 	{
-		//// TO DO CHECK THE COIN'S COLOR WITH THE GIVEN COORDINATES.
-		//// THEN CHANGE IT COLOR TO THE OTHER COLOR.
 		if(board[x][y].getToken()=='W')
 			board[x][y].setToken('B');
 		else if(board[x][y].getToken()=='B')
 			board[x][y].setToken('W');
 
+	}
+	
+	public static boolean isValidMove(int x, int y)
+	{
+		char player;
+		char opp;
+		if(Game.isBlacksTurn)
+		{
+			player = 'B';
+			opp = 'W';
+		}
+		else
+		{
+			player = 'W';
+			opp = 'B';
+		}
+		int xInit = x;
+		int yInit = y;
+		boolean hasCaptured = false;
+		
+		while(--x>=0 && --y>= 0)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(hasCaptured)
+				{
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				hasCaptured = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}
+		x = xInit;
+		y = yInit;
+		hasCaptured = false;
+		while(--x>=0)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(hasCaptured)
+				{
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				hasCaptured = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		hasCaptured = false;
+		while(--x>=0 && ++y<8)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(hasCaptured)
+				{
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				hasCaptured = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		hasCaptured = false;
+		while(++x<8 && --y>=0)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(hasCaptured)
+				{
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				hasCaptured = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		hasCaptured = false;
+		while(++x<8)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(hasCaptured)
+				{
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				hasCaptured = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		hasCaptured = false;
+		while(++x<8 && ++y<8)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(hasCaptured)
+				{
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				hasCaptured = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		hasCaptured = false;
+		while(--y>=0)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(hasCaptured)
+				{
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				hasCaptured = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}		
+		x = xInit;
+		y = yInit;
+		hasCaptured = false;
+		while(++y<8)
+		{
+			if(board[x][y].getToken() == player)
+			{
+				if(hasCaptured)
+				{
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if(board[x][y].getToken() == opp)
+			{
+				hasCaptured = true;
+			}
+			else if(board[x][y].getToken() == ' ' || board[x][y].getToken() == '+')
+			{
+				break;
+			}
+		}
+		
+		return false;
 	}
 	
 }

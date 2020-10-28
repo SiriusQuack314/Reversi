@@ -33,7 +33,7 @@ public class GameUI
 		 * Starting a new game
 		 */
 		
-		this.primaryStage = primaryStage;
+		GameUI.primaryStage = primaryStage;
 		
 		game = new Game((new Player()), new Player()); // Change this once sign in is complete
 
@@ -159,7 +159,7 @@ public class GameUI
 		Button btQuit = new Button("Quit Game");
 
 		// Setting actions for buttons
-		btQuit.setOnAction(e -> (new ReversiApp()).start(primaryStage));
+		btQuit.setOnAction(e -> Game.quitGameByForfeit());
 		btPass.setOnAction(e -> Game.passTurn());
 
 		HBox paneButton = new HBox(100);
@@ -191,24 +191,25 @@ public class GameUI
 	}
 
 	
-	public static void showResults(Stage primaryStage)
+	public static void showResults()
 	{
 		BorderPane paneResults = new BorderPane();
+		Button btBackToMain = new Button("Back To Main Screen");
+		btBackToMain.setOnAction(e -> (new ReversiApp()).start(primaryStage));
 		
-		int result[] = Board.calculateScores();
-		if(result[0]>result[1])
+		if(Game.blackScore>Game.whiteScore)
 		{
-			Alert a1 = new Alert(AlertType.NONE,"BLACK HAS WON !",ButtonType.APPLY); 
+			Alert a1 = new Alert(AlertType.NONE,"BLACK HAS WON !", ButtonType.APPLY); 
 			a1.show(); 
 		}
-		else if(result[1]>result[0])
+		else if(Game.whiteScore>Game.blackScore)
 		{
-			Alert a1 = new Alert(AlertType.NONE,"WHITE HAS WON !",ButtonType.APPLY); 
+			Alert a1 = new Alert(AlertType.NONE,"WHITE HAS WON !", ButtonType.APPLY); 
 			a1.show(); 
 		}
-		else if(result[1]==result[0])
+		else if(Game.blackScore==Game.whiteScore)
 		{
-			Alert a1 = new Alert(AlertType.NONE,"IT'S A TIE !",ButtonType.APPLY); 
+			Alert a1 = new Alert(AlertType.NONE,"IT'S A TIE !", ButtonType.APPLY); 
 			a1.show(); 
 		}
 		
