@@ -131,37 +131,45 @@ public class Board
 				{
 					if(board[i][j].getToken() == a)
 					{
-						if(board[i+1][j].getToken() == b)
+						if(j + 2 < 8 && i + 2 < 8 && board[i+1][j].getToken() == b)
 						{
-							board[i+2][j].setToken('W');   ///TO DO  CHANGING THE CELLS COLOR INSTEAD OF setToken.
+							if(board[i+2][j].getToken()==' ')
+								board[i+2][j].setToken('W');   ///TO DO  CHANGING THE CELLS COLOR INSTEAD OF setToken.
 						}
-						if(board[i+1][j+1].getToken() == b)
+						if(j + 2 < 8 && i + 2 < 8 && board[i+1][j+1].getToken() == b)
 						{
-							board[i+2][j+2].setToken('W');
+							if(board[i+2][j+2].getToken()==' ')
+								board[i+2][j+2].setToken('W');
 						}
-						if(board[i][j+1].getToken() == b)
+						if(j + 2 < 8 && board[i][j+1].getToken() == b)
 						{
-							board[i][j+2].setToken('W');
+							if(board[i][j+2].getToken()==' ')
+								board[i][j+2].setToken('W');
 						}
-						if(i-2>0 && board[i-1][j+1].getToken() == b)
+						if(i-2 > 0 && j + 2 < 0 && board[i-1][j+1].getToken() == b)
 						{
-							board[i-2][j+2].setToken('W');
+							if(board[i-2][j+2].getToken()==' ')
+								board[i-2][j+2].setToken('W');
 						}
-						if(i-2>0 && board[i-1][j].getToken() == b)
+						if(i-2 > 0 && board[i-1][j].getToken() == b)
 						{
-							board[i-2][j].setToken('W');
+							if(board[i-2][j].getToken()==' ')
+								board[i-2][j].setToken('W');
 						}
 						if(i - 2 > 0 && j - 2 > 0 && board[i-1][j-1].getToken() == b)
 						{
-							board[i-2][j-2].setToken('W');
+							if(board[i-2][j-2].getToken()==' ')
+								board[i-2][j-2].setToken('W');
 						}
 						if(j - 2 > 0 && board[i][j-1].getToken() == b)
 						{
-							board[i][j-2].setToken('W');
+							if(board[i][j-2].getToken()==' ')
+								board[i][j-2].setToken('W');
 						}
-						if(j - 2 > 0 && board[i+1][j-1].getToken() == b)
+						if(i + 2 < 0 && j - 2 > 0 && board[i+1][j-1].getToken() == b)
 						{
-							board[i+2][j-2].setToken('W');
+							if(board[i+2][j-2].getToken()==' ')
+								board[i+2][j-2].setToken('W');
 						}
 							
 					}
