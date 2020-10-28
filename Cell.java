@@ -65,7 +65,6 @@ public class Cell extends Pane
 			Game.takeTurn();
 			
 		}
-		System.out.println();
 
 	}
 }
