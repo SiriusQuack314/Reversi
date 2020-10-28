@@ -44,21 +44,22 @@ public class Game
 	
 	public static void passTurn()
 	{
-		if(!Board.hasValidMoves())
+	//	if(!Board.hasValidMoves())
 		{
 			consecutivePasses++;
 			if(consecutivePasses == 2)
 			{
 				quitGame();
 			}
-			takeTurn();
+			isBlacksTurn = !isBlacksTurn;
+			GameUI.refresh(GameUI.primaryStage);
 		}		
 	}
 	
 	public static void quitGame()
 	{
 		Game.updateScores();
-		GameUI.showResults();
+		GameUI.showResults();		
 	}
 	
 	/*
