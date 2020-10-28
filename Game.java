@@ -44,15 +44,14 @@ public class Game
 	
 	public static void passTurn()
 	{
-	//	if(!Board.hasValidMoves())
+		if(!Board.hasValidMoves())
 		{
 			consecutivePasses++;
 			if(consecutivePasses == 2)
 			{
 				quitGame();
 			}
-			isBlacksTurn = !isBlacksTurn;
-			GameUI.refresh(GameUI.primaryStage);
+			takeTurn();
 		}		
 	}
 	
