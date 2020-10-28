@@ -52,6 +52,7 @@ public class Cell extends Pane
 	{
 		if (token == '+')
 		{
+			
 			if(Game.isBlacksTurn)
 			{
 				this.setToken('B');
