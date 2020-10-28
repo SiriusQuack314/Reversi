@@ -51,7 +51,7 @@ public class Game
 			{
 				quitGame();
 			}
-			rakeTurn();
+			takeTurn();
 		}		
 	}
 	
