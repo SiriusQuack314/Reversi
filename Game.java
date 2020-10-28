@@ -14,7 +14,7 @@ public class Game
 	{
 		this.black = black;
 		this.white = white;
-		
+		isBlacksTurn = true;
 		new Board(); //set up board
 		updateScores(); //setting initial scores
 		
@@ -57,6 +57,7 @@ public class Game
 	
 	public static void quitGame()
 	{
+		GameUI.refresh(GameUI.primaryStage);
 		Game.updateScores();
 		GameUI.showResults();		
 	}
