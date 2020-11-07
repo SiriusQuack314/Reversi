@@ -4,6 +4,8 @@ public class Game
 {	
 	Player black;
 	Player white;
+	int blackTime;
+	int whiteTime; 
 	static int blackScore;
 	static int whiteScore;
 	static boolean isBlacksTurn = true;
@@ -14,6 +16,8 @@ public class Game
 	{
 		this.black = black;
 		this.white = white;
+		this.blackTime = 0; // temp time
+		this.whiteTime = 0; // temp time
 		isBlacksTurn = true;
 		new Board(); //set up board
 		updateScores(); //setting initial scores

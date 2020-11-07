@@ -105,6 +105,24 @@ public class GameUI
 
 		return panePlayers;
 	}
+	
+	private static FlowPane showTimers() {
+		FlowPane paneTimer = new FlowPane();
+		paneTimer.setAlignment(Pos.CENTER);
+		paneTimer.setPadding(new Insets(20, 20, 20, 20));
+		paneTimer.setHgap(20);
+
+		Label LbPlayer1 = new Label("Player1 Time"); // temp name
+		Label LbPlayer2 = new Label("Player2 Time"); // temp name
+
+		Label LbPlayer1Score = new Label("" + Game.blackScore); // temp var
+		Label LbPlayer2Score = new Label("" + Game.whiteScore); // temp var
+		
+		paneTimer.getChildren().addAll(LbPlayer1, LbPlayer1Score, LbPlayer2, LbPlayer2Score);
+		
+		
+		return paneTimer;
+	}
 
 	public static GridPane showBoard()
 	{
@@ -173,13 +191,20 @@ public class GameUI
 		GridPane paneBoard = showBoard();
 
 		FlowPane panePlayers = showPlayers();
+		
+		FlowPane paneTimer = showTimers();
+		
+		VBox paneTop = new VBox(5); // the amount of vertical space between each child
+		paneTop.setAlignment(Pos.CENTER);
+		paneTop.getChildren().addAll(paneButton, paneTimer);
+
 
 		/*
 		 * Combining all panes to a single BorderPane
 		 */
 
 		BorderPane paneGame = new BorderPane();
-		paneGame.setTop(paneButton);
+		paneGame.setTop(paneTop);
 		paneGame.setCenter(paneBoard);
 		paneGame.setBottom(panePlayers);
 		// timers at top
