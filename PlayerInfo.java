@@ -7,49 +7,7 @@ import java.util.Scanner;
 import sun.net.idn.StringPrep;
 
 public class PlayerInfo
-{
-	
-	
-	public static void createData()
-	{
-		try 
-	    {
-	      File newFile = new File("info.txt");
-	      if (newFile.createNewFile()) 
-	      {
-	        System.out.println("File created: " + newFile.getName());
-	      } 
-	      
-	      else 
-	      {
-	        System.out.println("User Stats Found");
-	      }
-	    } 
-	    
-	    
-	    catch (IOException e) 
-	    {
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
-	    }
-	}
-	
-	
-	
-	//Writes a new player to the file
-	public static void write(String p) throws IOException
-		{
-			Scanner fs = new Scanner(new File("info.txt"));
-			FileWriter fw = new FileWriter("info.txt", true);
-			
-			while(fs.hasNextLine())
-			{
-				fs.nextLine();
-				
-			}
-			fw.write(p+"\n");
-			fw.close();
-		}
+{	
 	
 	//finds Username in file
 	public static String userCheck(String p) throws FileNotFoundException
