@@ -1,212 +1,102 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
-public class StatisticsInfo
+
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import javafx.event.ActionEvent; 
+import javafx.event.EventHandler;
+
+public class StatisticsUI
 {
-  
-	//Creates the stats.txt file to save player's data
-	public static void createData()
-    {
-	   try 
-	    {
-	      File newFile = new File("stats.txt");
-	      if (newFile.createNewFile()) 
-	      {
-	        System.out.println("File created: " + newFile.getName());
-	      } 
-	      
-	      else 
-	      {
-	        System.out.println("User Stats Found");
-	      }
-	    } 
-	    
-	    
-	    catch (IOException e) 
-	    {
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
-	    }
-	   
-    }
-	
-	//Writes a new player to the file
-	public static void write(String p) throws IOException
+	public static void main(String[] args)
 	{
-		Scanner fs = new Scanner(new File("stats.txt"));
-		FileWriter fw = new FileWriter("stats.txt", true);
-		
-		while(fs.hasNextLine())
-		{
-			fs.nextLine();
-			
-		}
-		fw.write(p+" 0 0\n");
-		fw.close();
-	}
-	
-	
-	//This finds a player's name, wins, and losses, and returns them. I may delete this.
-	//EDIT: This now finds a player and returns true if found. False if not.
-	public static boolean find(String p) throws IOException
-	{
-		Scanner fs = new Scanner(new File("stats.txt"));
-		String pn = p;
-		int pw = 0;
-		int pl = 0;
-		String check = "";
-		String [] check1 = new String[3];
-		
-		while(fs.hasNextLine())
-		{
-			
-			check=fs.nextLine();
-			check1 = check.split(" ");
-			if(check1[0].equals(pn))
-			{
-				pw=Integer.parseInt(check1[1]);
-				pl=Integer.parseInt(check1[2]);
-				return true;
-			}
-			
-		}
-		
-		//return pn+" has "+pw +" wins and "+pl+" losses";
-		return false;
-	}
-	
-	
-	//Overwrites a players previous data
-	public static void overWrite(String p, int w, int l) throws IOException
-	{
-		Scanner fs = new Scanner(new File("stats.txt"));
-		
-		String pn=p;
-		String old="";
-		String check = "";
-		String [] check1 = new String[3];
-		
-		while(fs.hasNextLine())
-		{
-			
-			check=fs.nextLine();
-			check1 = check.split(" ");
-			if(check1[0].equals(pn))
-			{
-				//This essentially deletes the player's old data, so it can be rewritten later
-			}
-			else
-			{
-				old+=check+"\n";			
-			}
-		}
-		
-		FileWriter fw = new FileWriter("stats.txt");
-		fw.write(old);
-		fw.append(p+" "+w+" "+l+"\n");
-		fw.close();
-	}
-	
-	//Deletes a Player
-	public static void delete(String p) throws IOException
-	{
-		Scanner fs = new Scanner(new File("stats.txt"));
-		
-			
-		String pn=p;
-		//String old = fs.nextLine();
-		String old="";
-		String check = "";
-		String [] check1 = new String[3];
-		while(fs.hasNextLine())
-		{
-				
-			check=fs.nextLine();
-			check1 = check.split(" ");
-			if(check1[0].equals(pn))
-			{
-				
-			}
-			else
-			{
-				old+=check+"\n";		
-			}
-			
-				
-		}
-			
-		FileWriter fw = new FileWriter("stats.txt");
-		fw.write(old);
-		fw.close();
-	}
-	
-	//Displays all players in the file. This may move or change
-	//EDIT: This has changed from void to String
-	public static String displayAll() throws FileNotFoundException
-	{
-		Scanner fs = new Scanner(new File("stats.txt"));
-		String check = "";
-		
-		while(fs.hasNextLine())
-		{
-			check+=fs.nextLine()+"\n";
-		}
-		
-		return check;
-	}
-	
-	//Gets player wins
-	public static int getWins(String p) throws FileNotFoundException
-	{
-		Scanner fs = new Scanner(new File("stats.txt"));
-		String pn = p;
-		int pw = 0;
-		String check = "";
-		String [] check1 = new String[3];
-		
-		while(fs.hasNextLine())
-		{
-			
-			check=fs.nextLine();
-			check1 = check.split(" ");
-			if(check1[0].equals(pn))
-			{
-				pw=Integer.parseInt(check1[1]);
-				break;
-			}
-			
-		}
-		
-		return pw;
-	}
-	
-	//Gets Player losses
-	public static int getLosses(String p) throws FileNotFoundException
-	{
-		Scanner fs = new Scanner(new File("stats.txt"));
-		String pn = p;
-		int pl = 0;
-		String check = "";
-		String [] check1 = new String[3];
-		
-		while(fs.hasNextLine())
-		{
-			
-			check=fs.nextLine();
-			check1 = check.split(" ");
-			if(check1[0].equals(pn))
-			{
-				pl=Integer.parseInt(check1[2]);
-				break;
-			}
-			
-		}
-		
-		return pl;
+		Application.launch(args);
 	}
 
-	
-   
+	public void start(Stage primaryStage) throws FileNotFoundException
+	{
+
+		/*
+		 * Statistics Scene
+		 * 
+		 * The system will keep records of wins and losses of players. This is where
+		 * guests and players can view records of wins/losses of individual games or
+		 * players.
+		 * 
+		 */
+
+		Label SelectPl = new Label("Select player to view statistics:");
+		ObservableList<String> players = FXCollections.observableArrayList();
+		
+		//Scans the stats file, adds players to the combo box
+		Scanner fs = new Scanner(new File("stats.txt"));
+		String check = "";
+		String [] check1 = new String[3];
+		while(fs.hasNextLine())
+		{
+			check=fs.nextLine();
+			check1=check.split(" ");
+			players.add(check1[0]);
+		}
+		
+
+		ComboBox ComPlayers = new ComboBox(players);
+
+		int numberOfWins [] = new int[] {0};
+		int numberOfLosses [] = new int[] {0};
+
+		Label TxWins = new Label("Wins : " + numberOfWins[0]);
+		Label TxLoses = new Label("Loses : " + numberOfLosses[0]);
+		
+		
+		//Displays a players wins and losses when clicked on
+		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() 
+		{ 
+          public void handle(ActionEvent e) 
+          { 
+              
+        	  try 
+        	  {
+				numberOfWins[0] = StatisticsInfo.getWins((String)ComPlayers.getValue());
+				numberOfLosses[0] = StatisticsInfo.getLosses((String)ComPlayers.getValue());
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	  TxWins.setText("Wins: "+numberOfWins[0]);
+        	  TxLoses.setText("Losses: "+numberOfLosses[0]);
+        	  
+          } 
+      }; 
+      
+      ComPlayers.setOnAction(event);
+      
+
+		// Buttons
+		Button btBackStat = new Button("Back");
+
+		// Setting actions for buttons
+		btBackStat.setOnAction(e -> (new ReversiApp()).start(primaryStage));
+
+		VBox paneStats = new VBox(25); // the amount of vertical space between each child
+		paneStats.setAlignment(Pos.CENTER);
+		paneStats.getChildren().addAll(SelectPl, ComPlayers, TxWins, TxLoses, btBackStat);
+
+		Scene sceneStats = new Scene(paneStats, 500, 500);
+		
+		primaryStage.setTitle("Reversi"); // Set the stage title
+		primaryStage.setScene(sceneStats); // Place the scene in the stage
+		primaryStage.show(); // Display the stage
+	}
 }
