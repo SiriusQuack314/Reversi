@@ -84,3 +84,4 @@ public class Player
 	{
 		return "Username: " + username + " | Password: " + password + " | Admin: " + isAdmin;
 	}
+}
