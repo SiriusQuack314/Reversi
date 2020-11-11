@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javafx.scene.layout.Pane;
 
 public class Cell extends Pane
@@ -23,7 +26,14 @@ public class Cell extends Pane
 		setStyle("-fx-border-color: black");
 		
 		this.setPrefSize(50, 50);
-		this.setOnMouseClicked(e -> handleMouseClick());
+		this.setOnMouseClicked(e -> {
+			try {
+				handleMouseClick();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 	}
 
 	public char getToken()
@@ -48,7 +58,7 @@ public class Cell extends Pane
 		}
 	}
 
-	private void handleMouseClick()
+	private void handleMouseClick() throws FileNotFoundException, IOException
 	{
 		if (token == '+')
 		{
