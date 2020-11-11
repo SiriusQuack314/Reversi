@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Optional;
 
 import javafx.application.Application;
@@ -30,7 +32,7 @@ public class GameUI
   Application.launch(args);
  }
 
- public void start(Stage primaryStage)
+ public void start(Stage primaryStage) throws IOException
  {
   /*
    * Starting a new game
@@ -52,9 +54,58 @@ public class GameUI
   panePlayers.setAlignment(Pos.CENTER);
   panePlayers.setPadding(new Insets(20, 20, 20, 20));
   panePlayers.setHgap(20);
+  Label LbPlayer1 = new Label("");
+  Label LbPlayer2 = new Label("");
+  
+  if(Player.getLogin()==true && Player2.getLogin()==true)
+  {
+	  if(Player.getPriority()==true)
+	  {
+		  LbPlayer1 = new Label(Player.getUsername());
+		  LbPlayer2 = new Label(Player2.getUsername());
+	  }
+	  else if(Player.getPriority()==false)
+	  {
+		  LbPlayer1 = new Label(Player2.getUsername());
+		  LbPlayer2 = new Label(Player.getUsername());
+	  }
+  }
+  
+  else if(Player.getLogin()==true)
+  {
+	  if(Player.getPriority()==true)
+	  {
+		  LbPlayer1 = new Label(Player.getUsername());
+		  LbPlayer2 = new Label("Player2");
+	  }
+	  else if(Player.getPriority()==false)
+	  {
+		  LbPlayer1 = new Label("Player1");
+		  LbPlayer2 = new Label(Player.getUsername());
+	  }
+  }
+  
+  else if(Player2.getLogin()==true)
+  {
+	  if(Player2.getPriority()==true)
+	  {
+		  LbPlayer1 = new Label(Player2.getUsername());
+		  LbPlayer2 = new Label("Player2");
+	  }
+	  else if(Player.getPriority()==false)
+	  {
+		  LbPlayer1 = new Label("Player1");
+		  LbPlayer2 = new Label(Player2.getUsername());
+	  }
+  }
+  
+  else 
+  {
 
-  Label LbPlayer1 = new Label("Player1"); // temp name
-  Label LbPlayer2 = new Label("Player2"); // temp name
+  LbPlayer1 = new Label("Player1"); // temp name
+  LbPlayer2 = new Label("Player2"); // temp name
+  
+  }
 
   Label LbPlayer1Score = new Label("" + Game.blackScore ); // temp var
   Label LbPlayer2Score = new Label("" + Game.whiteScore); // temp var
@@ -181,8 +232,22 @@ public class GameUI
   Button btQuit = new Button("Quit Game");
 
   // Setting actions for buttons
-  btQuit.setOnAction(e -> Game.quitGameByForfeit());
-  btPass.setOnAction(e -> Game.passTurn());
+  btQuit.setOnAction(e -> {
+	try {
+		Game.quitGameByForfeit();
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+});
+  btPass.setOnAction(e -> {
+	try {
+		Game.passTurn();
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+});
 
   HBox paneButton = new HBox(100);
   paneButton.setPadding(new Insets(15, 15, 15, 15));
@@ -220,7 +285,7 @@ public class GameUI
  }
 
  
- public static void showResults()
+ public static void showResults() throws FileNotFoundException, IOException
  {
   BorderPane paneResults = new BorderPane();
   Button btBackToMain = new Button("Back To Main Screen");
@@ -228,6 +293,42 @@ public class GameUI
   
   if(Game.blackScore>Game.whiteScore)
   {
+	  //Sees if the player is logged in and if he is black. If so, he gets a win added to his stats
+	  if(Player.isLoggedIn==true)
+	  {
+		  if(Player.isBlack==true)
+		  {
+			  StatisticsInfo.overWrite(Player.getUsername(),StatisticsInfo.getWins(Player.getUsername())+1,StatisticsInfo.getLosses(Player.getUsername()));
+		  }
+	  }
+	  
+	  //Checks to see if Player 2 (not yet designed) is logged in and black. If so, he gets a win
+	  if(Player2.isLoggedIn==true)
+	  {
+		  if(Player2.isBlack==true)
+		  {
+			  StatisticsInfo.overWrite(Player2.getUsername(),StatisticsInfo.getWins(Player2.getUsername())+1,StatisticsInfo.getLosses(Player2.getUsername()));
+		  }
+	  }
+	  
+	  //Checks to see if Player 1 is white and logged in. If he is, he has lost the game
+	  if(Player.isLoggedIn==true)
+	  {
+		  if(Player.isBlack==false)
+		  {
+			  StatisticsInfo.overWrite(Player.getUsername(), StatisticsInfo.getWins(Player.getUsername()), StatisticsInfo.getLosses(Player.getUsername())+1);
+		  }
+	  }
+	  
+	//Checks to see if Player 2 is white and logged in. If he is, he has lost the game
+	  if(Player2.isLoggedIn==true)
+	  {
+		  if(Player2.isBlack==false)
+		  {
+			  StatisticsInfo.overWrite(Player2.getUsername(), StatisticsInfo.getWins(Player2.getUsername()), StatisticsInfo.getLosses(Player2.getUsername())+1);
+		  }
+	  }
+	  
    Alert a1 = new Alert(AlertType.NONE,"BLACK HAS WON !", ButtonType.OK);
    Optional<ButtonType> result = a1.showAndWait();
    if (result.get() == ButtonType.OK)
@@ -237,6 +338,45 @@ public class GameUI
   }
   else if(Game.whiteScore>Game.blackScore)
   {
+	  
+	//Sees if the player is logged in and if he is black. If so, he gets a win added to his stats
+	  if(Player.isLoggedIn==true)
+	  {
+		  if(Player.isBlack==false)
+		  {
+			  StatisticsInfo.overWrite(Player.getUsername(),StatisticsInfo.getWins(Player.getUsername())+1,StatisticsInfo.getLosses(Player.getUsername()));
+		  }
+	  }
+	  
+	  //Checks to see if Player 2 (not yet designed) is logged in and white. If so, he gets a win
+	  if(Player2.isLoggedIn==true)
+	  {
+		  if(Player2.isBlack==false)
+		  {
+			  StatisticsInfo.overWrite(Player2.getUsername(),StatisticsInfo.getWins(Player2.getUsername())+1,StatisticsInfo.getLosses(Player2.getUsername()));
+		  }
+	  }
+	  
+	  //Checks to see if Player 1 is black and logged in. If he is, he has lost the game
+	  if(Player.isLoggedIn==true)
+	  {
+		  if(Player.isBlack==true)
+		  {
+			  StatisticsInfo.overWrite(Player.getUsername(), StatisticsInfo.getWins(Player.getUsername()), StatisticsInfo.getLosses(Player.getUsername())+1);
+		  }
+	  }
+	  
+	//Checks to see if Player 2 is black and logged in. If he is, he has lost the game
+	  if(Player2.isLoggedIn==true)
+	  {
+		  if(Player2.isBlack==true)
+		  {
+			  StatisticsInfo.overWrite(Player2.getUsername(), StatisticsInfo.getWins(Player2.getUsername()), StatisticsInfo.getLosses(Player2.getUsername())+1);
+		  }
+	  }
+	  
+	  
+	  
    Alert a1 = new Alert(AlertType.NONE,"WHITE HAS WON !", ButtonType.OK); 
    Optional<ButtonType> result = a1.showAndWait();
    if (result.get() == ButtonType.OK)
@@ -264,10 +404,24 @@ public class GameUI
   Button btGame = new Button("Start Game");
 
   // Setting actions for buttons
-  btRegister.setOnAction(e -> (new RegistrationUI()).start(primaryStage));
-  btStats.setOnAction(e -> (new StatisticsUI()).start(primaryStage));
+  btRegister.setOnAction(e -> (new RegisterUI()).start(primaryStage));
+  btStats.setOnAction(e -> {
+	try {
+		(new StatisticsUI()).start(primaryStage);
+	} catch (FileNotFoundException e2) {
+		// TODO Auto-generated catch block
+		e2.printStackTrace();
+	}
+});
   btConfig.setOnAction(e -> (new ConfigureUI()).start(primaryStage));
-  btGame.setOnAction(e -> (new GameUI()).start(primaryStage));
+  btGame.setOnAction(e -> {
+	try {
+		(new GameUI()).start(primaryStage);
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+});
 
   VBox paneInitial = new VBox(25); // the amount of vertical space between each child
   paneInitial.setAlignment(Pos.CENTER);
