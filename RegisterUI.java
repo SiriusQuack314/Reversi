@@ -97,6 +97,7 @@ public class RegisterUI
 		 * 
 		 */
 		createData();
+		StatisticsInfo.createData();
 		
 		// Labels & Text fields
 		Label LbUsername = new Label("Choose a Username"); // Labels will be on left..
