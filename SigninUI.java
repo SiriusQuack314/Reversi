@@ -144,9 +144,15 @@ public class SigninUI
 				            "Form Error", "Username or Password is incorrect.");
 		        	return;
 		        }
-		        if(TxUsername.getText().equals(userRead()) && TxPassword.getText().equals(passRead())){
+		        if(TxUsername.getText().equals(userRead()) && TxPassword.getText().equals(passRead()))
+		        {
 		        	showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
 		    		        "Login Successful!", "Welcome " + TxUsername.getText());
+		        	
+		        	//This lil bit sets the player's username to his login, marks that he is logged in, and randomly assigns him white or black
+		        	Player.setUsername(userRead());
+		        	Player.setLogin();
+		        	Player.setPriority();
 		        	return;
 		        }
 
