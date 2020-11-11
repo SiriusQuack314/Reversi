@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,10 +26,24 @@ public class ReversiApp extends Application
 		Button btGame = new Button("Start Game");
 
 		// Setting actions for buttons
-		btRegister.setOnAction(e -> (new RegistrationUI()).start(primaryStage));
-		btStats.setOnAction(e -> (new StatisticsUI()).start(primaryStage));
+		btRegister.setOnAction(e -> (new RegisterUI()).start(primaryStage));
+		btStats.setOnAction(e -> {
+			try {
+				(new StatisticsUI()).start(primaryStage);
+			} catch (FileNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		});
 		btConfig.setOnAction(e -> (new ConfigureUI()).start(primaryStage));
-		btGame.setOnAction(e -> (new GameUI()).start(primaryStage));
+		btGame.setOnAction(e -> {
+			try {
+				(new GameUI()).start(primaryStage);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 
 		VBox paneInitial = new VBox(25); // the amount of vertical space between each child
 		paneInitial.setAlignment(Pos.CENTER);
