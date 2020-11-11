@@ -69,7 +69,7 @@ public class RegisterUI
 		{
 			sc.nextLine();	
 		}
-		fw.write(u+"\n");		
+		fw.write(u+" ");		
 		fw.close();
 	}
 	
@@ -137,20 +137,41 @@ public class RegisterUI
 				            "Form Error", "Password must be 5 numbers");
 				            return;
 		        }
-		        if(!TxUsername.getText().isEmpty() && !TxPassword.getText().isEmpty()){		        	
+		        
+		        if(PlayerInfo.passVal(TxPassword.getText())==false)
+		        {
+		        	showAlert(Alert.AlertType.ERROR,primaryStage.getScene().getWindow(),"Form Error","Your password violates one or more conditions. Please make sure it is 5 numbers");
+		        	return;
+		        }
+		        
+		        if(!TxUsername.getText().isEmpty() && !TxPassword.getText().isEmpty()&&PlayerInfo.passVal(TxPassword.getText())==true)
+		        {		        	
 		        	try {
-		        		clearTheFile();
-						userWrite(TxUsername.getText());
-					} catch (IOException e) {
-						e.printStackTrace();
+						if(PlayerInfo.find(TxUsername.getText())==false)
+						{
+						try 
+						{
+							//clearTheFile();
+							userWrite(TxUsername.getText());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						try 
+						{
+							passWrite(TxPassword.getText());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
+						        "Registration Successful!", "Welcome " + TxUsername.getText());
+						}
+						
+						else
+							showAlert(Alert.AlertType.ERROR,primaryStage.getScene().getWindow(), "That player already exists.","That name is taken.");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-		        	try {
-						passWrite(TxPassword.getText());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-		        	showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
-		    		        "Registration Successful!", "Welcome " + TxUsername.getText());
 		        	try {
 						if(StatisticsInfo.find(TxUsername.getText())==false)
 						{
