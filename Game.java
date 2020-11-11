@@ -1,4 +1,5 @@
-
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Game
 { 
@@ -35,7 +36,7 @@ public class Game
   whiteScore = scores[1];
  }
  
- public static void takeTurn()
+ public static void takeTurn() throws FileNotFoundException, IOException
  {  
   Game.updateScores();
   isBlacksTurn = !isBlacksTurn;
@@ -50,7 +51,7 @@ public class Game
   GameUI.refresh(GameUI.primaryStage);
  }
  
- public static void passTurn()
+ public static void passTurn() throws FileNotFoundException, IOException
  {
   if(!Board.hasValidMoves())
   {
@@ -63,7 +64,7 @@ public class Game
   }  
  }
  
- public static void quitGame()
+ public static void quitGame() throws FileNotFoundException, IOException
  {
   GameUI.refresh(GameUI.primaryStage);
   Game.updateScores();
@@ -87,7 +88,7 @@ public class Game
   return ""; //TBD
  }
 
- public static void quitGameByForfeit()
+ public static void quitGameByForfeit() throws FileNotFoundException, IOException
  {
   if(isBlacksTurn)
   {
