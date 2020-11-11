@@ -26,6 +26,7 @@ public class SigninUI
 	}
 	
 		static File newFile = new File("reginfo.txt");
+		int count = 0;
 
 	//Creates or detects file used to store registration info.
 	public static void createData()
@@ -140,23 +141,44 @@ public class SigninUI
 		            "Form Error", "Please enter a Password.");
 		            return;
 		        }        	
-		        if(!TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) && TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText()))){
+		        if(!TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) || TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText()))){
 		        	showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
 				            "Form Error", "Username or Password is incorrect.");
 		        	return;
 		        }
 		        
-					if(TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) && TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText())))
+				if(count!=2)	
+		        if(TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) && TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText())))
 					{
 						showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
 						        "Login Successful!", "Welcome " + TxUsername.getText());
 						
 						//This lil bit sets the player's username to his login, marks that he is logged in, and randomly assigns him white or black
-						Player.setUsername(TxUsername.getText());
-						Player.setLogin();
-						Player.setPriority();
-						return;
+						
+						if(count==0)
+						{
+							Player.setUsername(TxUsername.getText());
+							Player.setLogin();
+							Player.setPriority();
+							count++;
+							return;
+						}
+						
+						else if(count==1)
+						{
+							Player2.setUsername(TxUsername.getText());
+							Player2.setLogin();
+							count++;
+							return;
+						}
 					}
+				
+		        else if(count==2)
+				{
+					showAlert(Alert.AlertType.ERROR,primaryStage.getScene().getWindow(),"Error","There are already 2 players signed in");
+					return;
+				}
+				
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
