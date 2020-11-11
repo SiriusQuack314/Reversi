@@ -141,9 +141,10 @@ public class SigninUI
 		            "Form Error", "Please enter a Password.");
 		            return;
 		        }        	
-		        if(!TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) || TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText()))){
+		        if(!TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) || !TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText()))){
 		        	showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
-				            "Form Error", "Username or Password is incorrect.");
+				            "Form Error", "Username or Password is incorrect."+PlayerInfo.passCheck(TxUsername.getText()
+				            		));
 		        	return;
 		        }
 		        
