@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,8 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import javafx.event.ActionEvent; 
+import javafx.event.EventHandler;
 
 public class StatisticsUI
 {
@@ -16,7 +24,7 @@ public class StatisticsUI
 		Application.launch(args);
 	}
 
-	public void start(Stage primaryStage)
+	public void start(Stage primaryStage) throws FileNotFoundException
 	{
 
 		/*
@@ -29,15 +37,51 @@ public class StatisticsUI
 		 */
 
 		Label SelectPl = new Label("Select player to view statistics:");
-		ObservableList<String> players = FXCollections.observableArrayList("Player 1", "Player 2", "Player 3"); 
+		ObservableList<String> players = FXCollections.observableArrayList();
+		
+		//Scans the stats file, adds players to the combo box
+		Scanner fs = new Scanner(new File("stats.txt"));
+		String check = "";
+		String [] check1 = new String[3];
+		while(fs.hasNextLine())
+		{
+			check=fs.nextLine();
+			check1=check.split(" ");
+			players.add(check1[0]);
+		}
+		
 
 		ComboBox ComPlayers = new ComboBox(players);
 
-		int numberOfWins = 0;
-		int numberOfLosses = 0;
+		int numberOfWins [] = new int[] {0};
+		int numberOfLosses [] = new int[] {0};
 
-		Label TxWins = new Label("Wins : " + numberOfWins);
-		Label TxLoses = new Label("Loses : " + numberOfLosses);
+		Label TxWins = new Label("Wins : " + numberOfWins[0]);
+		Label TxLoses = new Label("Loses : " + numberOfLosses[0]);
+		
+		
+		//Displays a players wins and losses when clicked on
+		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() 
+		{ 
+          public void handle(ActionEvent e) 
+          { 
+              
+        	  try 
+        	  {
+				numberOfWins[0] = StatisticsInfo.getWins((String)ComPlayers.getValue());
+				numberOfLosses[0] = StatisticsInfo.getLosses((String)ComPlayers.getValue());
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	  TxWins.setText("Wins: "+numberOfWins[0]);
+        	  TxLoses.setText("Losses: "+numberOfLosses[0]);
+        	  
+          } 
+      }; 
+      
+      ComPlayers.setOnAction(event);
+      
 
 		// Buttons
 		Button btBackStat = new Button("Back");
