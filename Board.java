@@ -1,4 +1,3 @@
-
 public class Board
 {
 	static Cell[][] board;
@@ -738,9 +737,3 @@ public class Board
 	}
 	
 }
-
-
-
-
-
-
