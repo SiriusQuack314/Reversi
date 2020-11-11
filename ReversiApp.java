@@ -17,7 +17,7 @@ public class ReversiApp extends Application
 	{
 
 		// Buttons
-		Button btRegister = new Button("Sign In");
+		Button btRegister = new Button("Register/Sign In");
 		Button btStats = new Button("View Statistics");
 		Button btConfig = new Button("Configure Game");
 		Button btGame = new Button("Start Game");
