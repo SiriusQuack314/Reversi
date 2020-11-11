@@ -1,0 +1,178 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+
+public class SigninUI
+{
+	public static void main(String[] args)
+	{
+		Application.launch(args);
+	}
+	
+		static File newFile = new File("reginfo.txt");
+
+	//Creates or detects file used to store registration info.
+	public static void createData()
+	   {
+		   try 
+		    {  
+		      if (newFile.createNewFile()) 
+		      {
+		        System.out.println("File created: " + newFile.getName());
+		      } 
+		      
+		      else 
+		      {
+		        System.out.println("Please enter username and password");
+		      }
+		    } 
+		    
+		    
+		    catch (IOException e) 
+		    {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+		   
+	   }
+	
+	//Used to test if the file was being written correctly.
+	//Can be removed on final iteration.
+	public static void readFile() {
+		try {
+		      File myObj = new File("reginfo.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        System.out.println(data);
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+	}
+	
+	//Reads the first line of the file and returns the username.
+	public static String userRead() {
+		int n = 0; // The line number
+		String line = null;
+	      try{
+	        line = Files.readAllLines(Paths.get("reginfo.txt")).get(n);
+	      } 
+	      catch(IOException e){
+	        System.out.println(e);
+	      }
+		return line;
+	}
+	
+	//Reads the second line of the file and returns the password.
+	public static String passRead() {
+		int n = 1; // The line number
+		String line = null;
+	      try{
+	        line = Files.readAllLines(Paths.get("reginfo.txt")).get(n);
+	      } 
+	      catch(IOException e){
+	        System.out.println(e);
+	      }
+	      return line;
+	      
+	}
+	
+	public void start(Stage primaryStage)
+	{
+		/*
+		 * Sign-in Scene
+		 * 
+		 * Here a user can sign-in as an existing player. To sign-in, one enters their registered
+		 * name of five letters and digits; and their password of five digits.
+		 * 
+		 */
+		createData();
+		
+		// Labels & Text fields
+		Label LbUsername = new Label("Username"); // Labels will be on left..
+		TextField TxUsername = new TextField();
+		TxUsername.setMaxWidth(250);
+
+		Label LbPassword = new Label("Password");
+		TextField TxPassword = new TextField();
+		TxPassword.setMaxWidth(250);
+
+		// Buttons
+		Button btLogin = new Button("Login");
+		Button btRegister = new Button("Register");
+		Button btBack = new Button("Back");
+
+		// Setting actions for buttons
+		btBack.setOnAction(e -> (new ReversiApp()).start(primaryStage));
+		btRegister.setOnAction(e -> (new RegisterUI()).start(primaryStage));
+		btLogin.setOnAction(new EventHandler<ActionEvent>() {
+			//Handles the login button press based on login info input.
+			@Override
+		    public void handle(ActionEvent event) {
+		        if(TxUsername.getText().isEmpty()) {
+		            showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
+		            "Form Error", "Please enter a Username.");
+		            readFile();
+		            return;
+		        }
+		        if(TxPassword.getText().isEmpty()) {
+		            showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
+		            "Form Error", "Please enter a Password.");
+		            return;
+		        }        	
+		        if(!TxUsername.getText().equals(userRead()) || !TxPassword.getText().equals(passRead())){
+		        	showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
+				            "Form Error", "Username or Password is incorrect.");
+		        	return;
+		        }
+		        if(TxUsername.getText().equals(userRead()) && TxPassword.getText().equals(passRead())){
+		        	showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
+		    		        "Login Successful!", "Welcome " + TxUsername.getText());
+		        	return;
+		        }
+
+		    }
+		});
+
+		
+		
+		VBox paneRegister = new VBox(25); // the amount of vertical space between each child
+		paneRegister.setAlignment(Pos.CENTER);
+		paneRegister.getChildren().addAll(LbUsername, TxUsername, LbPassword, TxPassword, btLogin, btRegister, btBack);
+
+		Scene sceneRegister = new Scene(paneRegister, 500, 500);
+		
+		primaryStage.setTitle("Reversi"); // Set the stage title
+		primaryStage.setScene(sceneRegister); // Place the scene in the stage
+		primaryStage.show(); // Display the stage
+	}
+	//Alert method that allows for alert messages to appear
+	private void showAlert(AlertType alertType, Window owner, String title, String message) {
+			Alert alert = new Alert(alertType);
+			alert.setTitle(title);
+			alert.setHeaderText(null);
+			alert.setContentText(message);
+			alert.initOwner(owner);
+			alert.show();
+			
+		}
+}
