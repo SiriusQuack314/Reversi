@@ -151,6 +151,21 @@ public class RegisterUI
 					}
 		        	showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
 		    		        "Registration Successful!", "Welcome " + TxUsername.getText());
+		        	try {
+						if(StatisticsInfo.find(TxUsername.getText())==false)
+						{
+						try 
+						{
+							StatisticsInfo.write(TxUsername.getText());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		        	return;
 		        }
 		        else
