@@ -347,6 +347,7 @@ public class GameUI
 			}
 
 			Alert a1 = new Alert(AlertType.NONE, "BLACK HAS WON !", ButtonType.OK);
+			Timer.stop();
 			Optional<ButtonType> result = a1.showAndWait();
 			if (result.get() == ButtonType.OK)
 			{

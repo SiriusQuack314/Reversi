@@ -1,3 +1,4 @@
+  
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -39,6 +40,8 @@ public class TimeUI
 		 */
 		
 		// Labels & Text fields
+		Label LbAdmin = new Label("Admin Login");
+		
 		Label LbUsername = new Label("Username"); // Labels will be on left..
 		TextField TxUsername = new TextField();
 		TxUsername.setMaxWidth(250);
@@ -48,7 +51,7 @@ public class TimeUI
 		TxPassword.setMaxWidth(250);
 
 		// Buttons
-		Button btLogin = new Button("Login");
+		Button btLogin = new Button("Submit");
 	//	Button btRegister = new Button("Register");
 		Button btBack = new Button("Back");
 
@@ -60,14 +63,32 @@ public class TimeUI
 			@Override
 		    public void handle(ActionEvent event) {
 				
-		    }
+				if(TxUsername.getText().isEmpty()) {
+		            showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
+		            "Form Error", "Please enter a Username.");
+		            return;
+		        }
+		        if(TxPassword.getText().isEmpty()) {
+		            showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
+		            "Form Error", "Please enter a Password.");
+		            return;
+		        }        	
+		        if(!TxUsername.getText().equals("admin") || !TxPassword.getText().equals("12345")){
+		        	showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
+				            "Form Error", "Username or Password is incorrect."
+				            		);
+		        	return;
+		        }
+		        else new ConfigureUI().start(primaryStage);
+				
+				}
 		});
 
-		
+
 		
 		VBox paneRegister = new VBox(25); // the amount of vertical space between each child
 		paneRegister.setAlignment(Pos.CENTER);
-		paneRegister.getChildren().addAll(LbUsername, TxUsername, LbPassword, TxPassword, btLogin, btBack);
+		paneRegister.getChildren().addAll(LbAdmin, LbUsername, TxUsername, LbPassword, TxPassword, btLogin, btBack);
 
 		Scene sceneRegister = new Scene(paneRegister, 500, 500);
 		

@@ -40,7 +40,7 @@ public class ReversiApp extends Application
 				e2.printStackTrace();
 			}
 		});
-		btConfig.setOnAction(e -> (new ConfigureUI()).start(primaryStage));
+		btConfig.setOnAction(e -> (new TimeUI()).start(primaryStage));
 		btGame.setOnAction(e -> {
 			try
 			{
