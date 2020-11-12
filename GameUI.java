@@ -350,6 +350,7 @@ public class GameUI
 			Optional<ButtonType> result = a1.showAndWait();
 			if (result.get() == ButtonType.OK)
 			{
+				Timer.stop();
 				beginningStage(primaryStage);
 			}
 		}
@@ -404,6 +405,7 @@ public class GameUI
 			Optional<ButtonType> result = a1.showAndWait();
 			if (result.get() == ButtonType.OK)
 			{
+				Timer.stop();
 				beginningStage(primaryStage);
 			}
 		}
@@ -413,6 +415,7 @@ public class GameUI
 			Optional<ButtonType> result = a1.showAndWait();
 			if (result.get() == ButtonType.OK)
 			{
+				Timer.stop();
 				beginningStage(primaryStage);
 			}
 
