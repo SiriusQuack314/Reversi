@@ -42,6 +42,9 @@ public class RegisterUI
 		      if (nf.createNewFile()) 
 		      {
 		        System.out.println("File created: " + nf.getName());
+		        FileWriter fw = new FileWriter(new File("reginfo.txt"));
+		        fw.write("admin 12345\n");
+		        fw.close();
 		      } 
 		      
 		      else 
