@@ -12,6 +12,7 @@ public class Player
 	private int losses;
 	static boolean isBlack;
 	static boolean isLoggedIn=false;
+	static int count=0;
 	
 	public Player()
 	{
