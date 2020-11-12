@@ -21,12 +21,13 @@ public class Game
   new Board(); //set up board
   updateScores(); //setting initial scores
   resetTimer();
+  Timer.start(this);
   
  }
  
  public static void resetTimer() {
-  blackTime = 900000; // temp time
-  whiteTime = 900000; // temp time
+  blackTime = 300000; // temp time
+  whiteTime = 300000; // temp time
  }
 
  public static void updateScores()
