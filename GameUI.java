@@ -1,13 +1,8 @@
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -45,7 +40,8 @@ public class GameUI
   /*
    * Starting a new game
    */
-  
+	 Game.resetTimer();
+	  Timer.start();
   GameUI.primaryStage = primaryStage;
   
   game = new Game((new Player()), new Player()); // Change this once sign in is complete
@@ -53,7 +49,7 @@ public class GameUI
   //GameUI.primaryStage = primaryStage;
   
   refresh(primaryStage);
-
+ 
  }
 
  public static FlowPane showPlayers()
@@ -175,8 +171,8 @@ public class GameUI
   Label LbPlayer2 = new Label("Player2 Time"); // temp name
 
   
-  LbPlayer2Time = new Label("" + (Game.blackTime/(1000*60))%60 + "::" + (Game.blackTime/1000)%60); // temp var
-  LbPlayer1Time = new Label("" + (Game.whiteTime/(1000*60))%60 + "::" + (Game.whiteTime/1000)%60); // temp var
+  LbPlayer1Time = new Label("" + (Game.blackTime/(1000*60))%60 + "::" + (Game.blackTime/1000)%60); // temp var
+  LbPlayer2Time = new Label("" + (Game.whiteTime/(1000*60))%60 + "::" + (Game.whiteTime/1000)%60); // temp var
   
   paneTimer.getChildren().addAll(LbPlayer1, LbPlayer1Time, LbPlayer2, LbPlayer2Time);
   
@@ -295,10 +291,8 @@ public class GameUI
  
  public static void showResults() throws FileNotFoundException, IOException
  {
-  BorderPane paneResults = new BorderPane();
   Button btBackToMain = new Button("Back To Main Screen");
   btBackToMain.setOnAction(e -> (new ReversiApp()).start(primaryStage));
-  Timer timer = new Timer();
   
   if(Game.blackScore>Game.whiteScore)
   {
@@ -338,22 +332,13 @@ public class GameUI
 		  }
 	  }
 	  
-   Alert a1 = new Alert(AlertType.NONE,"BLACK HAS WON !");
-   Timeline idlestage = new Timeline( new KeyFrame( Duration.seconds(1), new EventHandler<ActionEvent>()
-   {
-
-       @Override
-       public void handle( ActionEvent event )
-       {
-    	   
-    	   a1.setResult(ButtonType.CANCEL);
-           a1.hide();
-           beginningStage(primaryStage);
-       }
-   } ) );
-   idlestage.setCycleCount( 1 );
-   idlestage.play();
-  }
+	  Alert a1 = new Alert(AlertType.NONE, "BLACK HAS WON !", ButtonType.OK);
+		Optional<ButtonType> result = a1.showAndWait();
+		if (result.get() == ButtonType.OK)
+		{
+			beginningStage(primaryStage);
+		}
+	}
   else if(Game.whiteScore>Game.blackScore)
   {
 	  
@@ -395,39 +380,22 @@ public class GameUI
 	  
 	  
 	  
-   Alert a1 = new Alert(AlertType.NONE,"WHITE HAS WON !"/*, ButtonType.OK*/); 
-   a1.show();
-   Timeline idlestage = new Timeline( new KeyFrame( Duration.seconds(1), new EventHandler<ActionEvent>()
-   {
-
-       @Override
-       public void handle( ActionEvent event )
-       {
-    	   a1.setResult(ButtonType.CANCEL);
-           a1.hide();
-           beginningStage(primaryStage);
-       }
-   } ) );
-   idlestage.setCycleCount( 1 );
-   idlestage.play();
-  }
-  else if(Game.blackScore==Game.whiteScore)
-  {
-   Alert a1 = new Alert(AlertType.NONE,"IT'S A TIE !"/*, ButtonType.OK*/); 
-   a1.show();
-   Timeline idlestage = new Timeline( new KeyFrame( Duration.seconds(1), new EventHandler<ActionEvent>()
-   {
-
-       @Override
-       public void handle( ActionEvent event )
-       {
-    	   a1.setResult(ButtonType.CANCEL);
-           a1.hide();
-           beginningStage(primaryStage);
-       }
-   } ) );
-   idlestage.setCycleCount( 1 );
-   idlestage.play();
+	  Alert a1 = new Alert(AlertType.NONE, "WHITE HAS WON !", ButtonType.OK);
+		Optional<ButtonType> result = a1.showAndWait();
+		if (result.get() == ButtonType.OK)
+		{
+			beginningStage(primaryStage);
+		}
+	}
+  else if (Game.blackScore == Game.whiteScore)
+	{
+		Alert a1 = new Alert(AlertType.NONE, "IT'S A TIE !", ButtonType.OK);
+		Optional<ButtonType> result = a1.showAndWait();
+		if (result.get() == ButtonType.OK)
+		{
+			beginningStage(primaryStage);
+		}
+	
   }
  }
  
@@ -470,4 +438,28 @@ public class GameUI
   primaryStage.show(); // Display the stage
 
  }
+
+public static void timeOut() {
+	
+	
+	
+	if(Game.blackTime<=0) {
+		//STATISTICS
+
+		
+		Alert a3 = new Alert(AlertType.NONE, "WHITE HAS WON !", ButtonType.OK);
+		a3.show();
+		beginningStage(primaryStage);
+	}
+	
+	else if(Game.whiteTime<=0) {
+		//STATISTICS
+
+		
+		Alert a2 = new Alert(AlertType.NONE, "BLACK HAS WON !", ButtonType.OK);
+		a2.show();
+		beginningStage(primaryStage);
+	}
+	
+}
 }

@@ -14,8 +14,7 @@ public class Timer {
 	
 	
 	@SuppressWarnings("unchecked")
-	static public void start (Game game) {
-		Game.resetTimer();
+	static public void start () {
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.getKeyFrames().add(
@@ -23,24 +22,16 @@ public class Timer {
 	                  new EventHandler() {
 						@Override
 						public void handle(Event event) {
-							if(game.isBlacksTurn == false)
-								game.whiteTime -= 1000;
+							if(Game.isBlacksTurn == false)
+								Game.whiteTime -= 1000;
 							else 
-								game.blackTime -= 1000;
+								Game.blackTime -= 1000;
 							
-							GameUI.LbPlayer1Time.setText("" + (Game.whiteTime/(1000*60))%60 + "::" + (Game.whiteTime/1000)%60);
-							GameUI.LbPlayer2Time.setText("" + (Game.blackTime/(1000*60))%60 + "::" + (Game.blackTime/1000)%60);
-							if(game.whiteTime <= 0 || game.blackTime <= 0) {
+							GameUI.LbPlayer2Time.setText("" + (Game.whiteTime/(1000*60))%60 + "::" + (Game.whiteTime/1000)%60);
+							GameUI.LbPlayer1Time.setText("" + (Game.blackTime/(1000*60))%60 + "::" + (Game.blackTime/1000)%60);
+							if(Game.whiteTime <= 0 || Game.blackTime <= 0) {
 								timeline.stop();
-								try {
-									Game.quitGame();
-								} catch (FileNotFoundException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
+								GameUI.timeOut();
 							}
 							
 						}
@@ -48,7 +39,4 @@ public class Timer {
 		timeline.playFromStart();
 	}
 	
-	static public void stop () {
-		timeline.stop();
-	}
 }

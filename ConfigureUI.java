@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class ConfigureUI
 {
 	
-	public static String timeLimit="15";
+	public static int timeLimit= 15;
 	private ObservableList<String> times = FXCollections.observableArrayList("1", "5", "10", "15", "30", "60"); 
 	private ComboBox<String> ComTimeLimit = new ComboBox<String>(times);
 
@@ -40,7 +40,7 @@ public class ConfigureUI
 		 */
 
 		Label LbSetTime = new Label("Set The Time Limit");
-		ComTimeLimit.setValue(timeLimit);
+		ComTimeLimit.setValue(Integer.toString(timeLimit));
 		// Buttons
 		Button btSubmitTime = new Button("Submit");
 		Button btBackConfig = new Button("Back");
@@ -62,7 +62,7 @@ public class ConfigureUI
 	
 	public void SubmitTime(Stage primaryStage)
 	{
-		timeLimit = ComTimeLimit.getValue();
+		timeLimit = Integer.parseInt(ComTimeLimit.getValue().trim());
 		Alert a1 = new Alert(AlertType.NONE,"Time Has Set To "+timeLimit, ButtonType.OK);
 		Optional<ButtonType> result = a1.showAndWait();
 		if (result.get() == ButtonType.OK)
