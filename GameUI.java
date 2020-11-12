@@ -171,9 +171,9 @@ public class GameUI
 		Label LbPlayer1 = new Label("Player1 Time"); // temp name
 		Label LbPlayer2 = new Label("Player2 Time"); // temp name
 
-		LbPlayer1Time = new Label("" + (Game.blackTime / (1000 * 60)) % 60 + "::" + (Game.blackTime / 1000) % 60); // temp
+		LbPlayer1Time = new Label("" + (Game.blackTime / (1000 * 60)) % 60 + ":" + (Game.blackTime / 1000) % 60); // temp
 																													// var
-		LbPlayer2Time = new Label("" + (Game.whiteTime / (1000 * 60)) % 60 + "::" + (Game.whiteTime / 1000) % 60); // temp
+		LbPlayer2Time = new Label("" + (Game.whiteTime / (1000 * 60)) % 60 + ":" + (Game.whiteTime / 1000) % 60); // temp
 																													// var
 
 		paneTimer.getChildren().addAll(LbPlayer1, LbPlayer1Time, LbPlayer2, LbPlayer2Time);
