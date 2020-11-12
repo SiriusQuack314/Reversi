@@ -37,9 +37,7 @@ public class SigninUI
 		      if (newFile.createNewFile()) 
 		      {
 		        System.out.println("File created: " + newFile.getName());
-		        FileWriter fw = new FileWriter(new File("reginfo.txt"));
-		        fw.write("admin 12345\n");
-		        fw.close();
+		        
 		        
 		      } 
 		      
