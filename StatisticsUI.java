@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -7,13 +8,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.stage.Window;
 import javafx.event.ActionEvent; 
 import javafx.event.EventHandler;
 
@@ -40,6 +43,7 @@ public class StatisticsUI
 		ObservableList<String> players = FXCollections.observableArrayList();
 		
 		//Scans the stats file, adds players to the combo box
+		try {
 		Scanner fs = new Scanner(new File("stats.txt"));
 		String check = "";
 		String [] check1 = new String[3];
@@ -98,5 +102,21 @@ public class StatisticsUI
 		primaryStage.setTitle("Reversi"); // Set the stage title
 		primaryStage.setScene(sceneStats); // Place the scene in the stage
 		primaryStage.show(); // Display the stage
+	}
+		catch(IOException E)
+		{
+			showAlert(Alert.AlertType.ERROR,primaryStage.getScene().getWindow(),"Error","There are no players registered yet");
+		}
+}
+
+	private void showAlert(AlertType alertType, Window owner, String title, String message) 
+	{
+		Alert alert = new Alert(alertType);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(message);
+		alert.initOwner(owner);
+		alert.show();
+		
 	}
 }
