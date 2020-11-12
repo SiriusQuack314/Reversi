@@ -304,7 +304,7 @@ public class GameUI
 		{
 			// Sees if the player is logged in and if he is black. If so, he gets a win
 			// added to his stats
-			if (Player.isLoggedIn == true)
+			if (Player.isLoggedIn == true&&Player.isAdmin==false)
 			{
 				if (Player.isBlack == true)
 				{
@@ -315,7 +315,7 @@ public class GameUI
 
 			// Checks to see if Player 2 is logged in and black. If so,
 			// he gets a win
-			if (Player2.isLoggedIn == true)
+			if (Player2.isLoggedIn == true&&Player2.isAdmin==false)
 			{
 				if (Player2.isBlack == true)
 				{
@@ -326,7 +326,7 @@ public class GameUI
 
 			// Checks to see if Player 1 is white and logged in. If he is, he has lost the
 			// game
-			if (Player.isLoggedIn == true)
+			if (Player.isLoggedIn == true&&Player.isAdmin==false)
 			{
 				if (Player.isBlack == false)
 				{
@@ -337,7 +337,7 @@ public class GameUI
 
 			// Checks to see if Player 2 is white and logged in. If he is, he has lost the
 			// game
-			if (Player2.isLoggedIn == true)
+			if (Player2.isLoggedIn == true&&Player2.isAdmin==false)
 			{
 				if (Player2.isBlack == false)
 				{
@@ -347,7 +347,6 @@ public class GameUI
 			}
 
 			Alert a1 = new Alert(AlertType.NONE, "BLACK HAS WON !", ButtonType.OK);
-			Timer.stop();
 			Optional<ButtonType> result = a1.showAndWait();
 			if (result.get() == ButtonType.OK)
 			{
@@ -359,7 +358,7 @@ public class GameUI
 
 			// Sees if the player is logged in and if he is black. If so, he gets a win
 			// added to his stats
-			if (Player.isLoggedIn == true)
+			if (Player.isLoggedIn == true&&Player.isAdmin==false)
 			{
 				if (Player.isBlack == false)
 				{
@@ -370,7 +369,7 @@ public class GameUI
 
 			// Checks to see if Player 2 is logged in and white. If so,
 			// he gets a win
-			if (Player2.isLoggedIn == true)
+			if (Player2.isLoggedIn == true&&Player2.isAdmin==false)
 			{
 				if (Player2.isBlack == false)
 				{
@@ -381,7 +380,7 @@ public class GameUI
 
 			// Checks to see if Player 1 is black and logged in. If he is, he has lost the
 			// game
-			if (Player.isLoggedIn == true)
+			if (Player.isLoggedIn == true&&Player.isAdmin==false)
 			{
 				if (Player.isBlack == true)
 				{
@@ -392,7 +391,7 @@ public class GameUI
 
 			// Checks to see if Player 2 is black and logged in. If he is, he has lost the
 			// game
-			if (Player2.isLoggedIn == true)
+			if (Player2.isLoggedIn == true&&Player2.isAdmin==false)
 			{
 				if (Player2.isBlack == true)
 				{
@@ -400,7 +399,6 @@ public class GameUI
 							StatisticsInfo.getLosses(Player2.getUsername()) + 1);
 				}
 			}
-
 			Alert a1 = new Alert(AlertType.NONE, "WHITE HAS WON !", ButtonType.OK);
 			Timer.stop();
 			Optional<ButtonType> result = a1.showAndWait();
@@ -476,7 +474,7 @@ public class GameUI
 		{
 			// STATISTICS
 			
-			if (Player.isLoggedIn == true)
+			if (Player.isLoggedIn == true&&Player.isAdmin==false)
 			{
 				if (Player.isBlack == true)
 				{
@@ -487,7 +485,7 @@ public class GameUI
 
 			// Checks to see if Player 2 is logged in and black. If so,
 			// he gets a win
-			if (Player2.isLoggedIn == true)
+			if (Player2.isLoggedIn == true&&Player2.isAdmin==false)
 			{
 				if (Player2.isBlack == true)
 				{
@@ -498,7 +496,7 @@ public class GameUI
 
 			// Checks to see if Player 1 is white and logged in. If he is, he has lost the
 			// game
-			if (Player.isLoggedIn == true)
+			if (Player.isLoggedIn == true&&Player.isAdmin==false)
 			{
 				if (Player.isBlack == false)
 				{
@@ -509,7 +507,7 @@ public class GameUI
 
 			// Checks to see if Player 2 is white and logged in. If he is, he has lost the
 			// game
-			if (Player2.isLoggedIn == true)
+			if (Player2.isLoggedIn == true&&Player2.isAdmin==false)
 			{
 				if (Player2.isBlack == false)
 				{
@@ -517,6 +515,7 @@ public class GameUI
 							StatisticsInfo.getLosses(Player2.getUsername()) + 1);
 				}
 			}
+			
 			
 			
 
@@ -532,7 +531,7 @@ public class GameUI
 			
 			// Sees if the player is logged in and if he is black. If so, he gets a win
 						// added to his stats
-						if (Player.isLoggedIn == true)
+						if (Player.isLoggedIn == true&&Player.isAdmin==false)
 						{
 							if (Player.isBlack == false)
 							{
@@ -543,7 +542,7 @@ public class GameUI
 
 						// Checks to see if Player 2 is logged in and white. If so,
 						// he gets a win
-						if (Player2.isLoggedIn == true)
+						if (Player2.isLoggedIn == true&&Player2.isAdmin==false)
 						{
 							if (Player2.isBlack == false)
 							{
@@ -554,7 +553,7 @@ public class GameUI
 
 						// Checks to see if Player 1 is black and logged in. If he is, he has lost the
 						// game
-						if (Player.isLoggedIn == true)
+						if (Player.isLoggedIn == true&&Player.isAdmin==false)
 						{
 							if (Player.isBlack == true)
 							{
@@ -565,7 +564,7 @@ public class GameUI
 
 						// Checks to see if Player 2 is black and logged in. If he is, he has lost the
 						// game
-						if (Player2.isLoggedIn == true)
+						if (Player2.isLoggedIn == true&&Player2.isAdmin==false)
 						{
 							if (Player2.isBlack == true)
 							{
