@@ -7,7 +7,7 @@ public class Player
 {
 	private static String username;
 	private String password;
-	private boolean isAdmin;
+	static boolean isAdmin=false;
 	private int wins;
 	private int losses;
 	static boolean isBlack;
