@@ -159,37 +159,6 @@ public class SigninUI
 		        if(TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) && TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText())))
 					{
 						
-		        	if(TxUsername.getText().equals("admin") && TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText())))
-					{
-						showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
-						        "Login Successful!", "Welcome Mighty Admin! The rules of time are yours to play with!");
-						
-						if(Player.count==0)
-						{
-							Player.setUsername(TxUsername.getText());
-							Player.setLogin();
-							Player.setPriority();
-							Player.isAdmin=true;
-							Player.count++;
-							return;
-						}
-						
-						else if(Player.count==1)
-						{
-							Player2.setUsername(TxUsername.getText());
-							Player2.setLogin();
-							Player2.isAdmin=true;
-							Player.count++;
-							return;
-						}
-						
-						else if(Player.count==2)
-						{
-							showAlert(Alert.AlertType.ERROR,primaryStage.getScene().getWindow(),"Error","There are already 2 players signed in");
-							return;
-						}
-						
-					}
 		        	
 		        	
 		        	
