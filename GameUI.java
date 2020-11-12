@@ -171,9 +171,9 @@ public class GameUI
 		Label LbPlayer1 = new Label("Player1 Time"); // temp name
 		Label LbPlayer2 = new Label("Player2 Time"); // temp name
 
-		LbPlayer1Time = new Label("" + (Game.blackTime / (1000 * 60)) % 60 + ":" + (Game.blackTime / 1000) % 60); // temp
+		LbPlayer1Time = new Label("" + (Game.blackTime / (1000 * 60)) % 60 + "::" + (Game.blackTime / 1000) % 60); // temp
 																													// var
-		LbPlayer2Time = new Label("" + (Game.whiteTime / (1000 * 60)) % 60 + ":" + (Game.whiteTime / 1000) % 60); // temp
+		LbPlayer2Time = new Label("" + (Game.whiteTime / (1000 * 60)) % 60 + "::" + (Game.whiteTime / 1000) % 60); // temp
 																													// var
 
 		paneTimer.getChildren().addAll(LbPlayer1, LbPlayer1Time, LbPlayer2, LbPlayer2Time);
@@ -313,7 +313,7 @@ public class GameUI
 				}
 			}
 
-			// Checks to see if Player 2 (not yet designed) is logged in and black. If so,
+			// Checks to see if Player 2 is logged in and black. If so,
 			// he gets a win
 			if (Player2.isLoggedIn == true)
 			{
@@ -367,7 +367,7 @@ public class GameUI
 				}
 			}
 
-			// Checks to see if Player 2 (not yet designed) is logged in and white. If so,
+			// Checks to see if Player 2 is logged in and white. If so,
 			// he gets a win
 			if (Player2.isLoggedIn == true)
 			{
@@ -466,12 +466,56 @@ public class GameUI
 		primaryStage.show(); // Display the stage
 	}
 
-	public static void timeOut()
+	public static void timeOut() throws FileNotFoundException, IOException
 	{
 
 		if (Game.blackTime <= 0)
 		{
 			// STATISTICS
+			
+			if (Player.isLoggedIn == true)
+			{
+				if (Player.isBlack == true)
+				{
+					StatisticsInfo.overWrite(Player.getUsername(), StatisticsInfo.getWins(Player.getUsername()) + 1,
+							StatisticsInfo.getLosses(Player.getUsername()));
+				}
+			}
+
+			// Checks to see if Player 2 is logged in and black. If so,
+			// he gets a win
+			if (Player2.isLoggedIn == true)
+			{
+				if (Player2.isBlack == true)
+				{
+					StatisticsInfo.overWrite(Player2.getUsername(), StatisticsInfo.getWins(Player2.getUsername()) + 1,
+							StatisticsInfo.getLosses(Player2.getUsername()));
+				}
+			}
+
+			// Checks to see if Player 1 is white and logged in. If he is, he has lost the
+			// game
+			if (Player.isLoggedIn == true)
+			{
+				if (Player.isBlack == false)
+				{
+					StatisticsInfo.overWrite(Player.getUsername(), StatisticsInfo.getWins(Player.getUsername()),
+							StatisticsInfo.getLosses(Player.getUsername()) + 1);
+				}
+			}
+
+			// Checks to see if Player 2 is white and logged in. If he is, he has lost the
+			// game
+			if (Player2.isLoggedIn == true)
+			{
+				if (Player2.isBlack == false)
+				{
+					StatisticsInfo.overWrite(Player2.getUsername(), StatisticsInfo.getWins(Player2.getUsername()),
+							StatisticsInfo.getLosses(Player2.getUsername()) + 1);
+				}
+			}
+			
+			
 
 			Alert a3 = new Alert(AlertType.NONE, "WHITE HAS WON !", ButtonType.OK);
 			a3.show();
@@ -481,6 +525,50 @@ public class GameUI
 		else if (Game.whiteTime <= 0)
 		{
 			// STATISTICS
+			
+			// Sees if the player is logged in and if he is black. If so, he gets a win
+						// added to his stats
+						if (Player.isLoggedIn == true)
+						{
+							if (Player.isBlack == false)
+							{
+								StatisticsInfo.overWrite(Player.getUsername(), StatisticsInfo.getWins(Player.getUsername()) + 1,
+										StatisticsInfo.getLosses(Player.getUsername()));
+							}
+						}
+
+						// Checks to see if Player 2 is logged in and white. If so,
+						// he gets a win
+						if (Player2.isLoggedIn == true)
+						{
+							if (Player2.isBlack == false)
+							{
+								StatisticsInfo.overWrite(Player2.getUsername(), StatisticsInfo.getWins(Player2.getUsername()) + 1,
+										StatisticsInfo.getLosses(Player2.getUsername()));
+							}
+						}
+
+						// Checks to see if Player 1 is black and logged in. If he is, he has lost the
+						// game
+						if (Player.isLoggedIn == true)
+						{
+							if (Player.isBlack == true)
+							{
+								StatisticsInfo.overWrite(Player.getUsername(), StatisticsInfo.getWins(Player.getUsername()),
+										StatisticsInfo.getLosses(Player.getUsername()) + 1);
+							}
+						}
+
+						// Checks to see if Player 2 is black and logged in. If he is, he has lost the
+						// game
+						if (Player2.isLoggedIn == true)
+						{
+							if (Player2.isBlack == true)
+							{
+								StatisticsInfo.overWrite(Player2.getUsername(), StatisticsInfo.getWins(Player2.getUsername()),
+										StatisticsInfo.getLosses(Player2.getUsername()) + 1);
+							}
+						}
 
 			Alert a2 = new Alert(AlertType.NONE, "BLACK HAS WON !", ButtonType.OK);
 			a2.show();
