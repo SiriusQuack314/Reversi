@@ -20,26 +20,34 @@ public class ReversiApp extends Application
 	{
 
 		// Buttons
-		Button btRegister = new Button("Register/Sign In");
+		Button btRegister = new Button("Register");
+		Button btSignIn = new Button("Sign In");
 		Button btStats = new Button("View Statistics");
 		Button btConfig = new Button("Configure Game");
 		Button btGame = new Button("Start Game");
 
 		// Setting actions for buttons
 		btRegister.setOnAction(e -> (new RegisterUI()).start(primaryStage));
+		btSignIn.setOnAction(e -> (new SigninUI()).start(primaryStage));
 		btStats.setOnAction(e -> {
-			try {
+			try
+			{
 				(new StatisticsUI()).start(primaryStage);
-			} catch (FileNotFoundException e2) {
+			}
+			catch (FileNotFoundException e2)
+			{
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
 		});
 		btConfig.setOnAction(e -> (new ConfigureUI()).start(primaryStage));
 		btGame.setOnAction(e -> {
-			try {
+			try
+			{
 				(new GameUI()).start(primaryStage);
-			} catch (IOException e1) {
+			}
+			catch (IOException e1)
+			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -47,7 +55,7 @@ public class ReversiApp extends Application
 
 		VBox paneInitial = new VBox(25); // the amount of vertical space between each child
 		paneInitial.setAlignment(Pos.CENTER);
-		paneInitial.getChildren().addAll(btRegister, btStats, btConfig, btGame);
+		paneInitial.getChildren().addAll(btRegister, btSignIn, btStats, btConfig, btGame);
 
 		Scene sceneInitial = new Scene(paneInitial, 500, 500);
 
