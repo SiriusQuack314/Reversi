@@ -27,7 +27,7 @@ public class Game {
 	}
 
 	public static void resetTimer() {
-		blackTime = ConfigureUI.timeLimit * 60000; // temp time
+		blackTime = ConfigureUI.timeLimit * 300; // temp time
 		whiteTime = ConfigureUI.timeLimit * 60000; // temp time
 	}
 

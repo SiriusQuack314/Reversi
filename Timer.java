@@ -30,7 +30,6 @@ public class Timer {
 							GameUI.LbPlayer2Time.setText("" + (Game.whiteTime/(1000*60))%60 + ":" + (Game.whiteTime/1000)%60);
 							GameUI.LbPlayer1Time.setText("" + (Game.blackTime/(1000*60))%60 + ":" + (Game.blackTime/1000)%60);
 							if(Game.whiteTime <= 0 || Game.blackTime <= 0) {
-								timeline.stop();
 								try {
 									GameUI.timeOut();
 								} catch (IOException e) {
@@ -42,6 +41,9 @@ public class Timer {
 						}
 	                }));
 		timeline.playFromStart();
+	}
+	public static void stop() {
+		timeline.stop();
 	}
 	
 }

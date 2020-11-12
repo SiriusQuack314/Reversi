@@ -519,6 +519,7 @@ public class GameUI
 
 			Alert a3 = new Alert(AlertType.NONE, "WHITE HAS WON !", ButtonType.OK);
 			a3.show();
+			Timer.stop();
 			beginningStage(primaryStage);
 		}
 
@@ -572,6 +573,7 @@ public class GameUI
 
 			Alert a2 = new Alert(AlertType.NONE, "BLACK HAS WON !", ButtonType.OK);
 			a2.show();
+			Timer.stop();
 			beginningStage(primaryStage);
 		}
 
