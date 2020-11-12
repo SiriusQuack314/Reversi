@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,6 +37,10 @@ public class SigninUI
 		      if (newFile.createNewFile()) 
 		      {
 		        System.out.println("File created: " + newFile.getName());
+		        FileWriter fw = new FileWriter(new File("reginfo.txt"));
+		        fw.write("admin 12345\n");
+		        fw.close();
+		        
 		      } 
 		      
 		      else 
@@ -130,7 +135,9 @@ public class SigninUI
 			@Override
 		    public void handle(ActionEvent event) {
 				try {
-				if(TxUsername.getText().isEmpty()) {
+				
+					
+					if(TxUsername.getText().isEmpty()) {
 		            showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
 		            "Form Error", "Please enter a Username.");
 		            readFile();
@@ -143,15 +150,50 @@ public class SigninUI
 		        }        	
 		        if(!TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) || !TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText()))){
 		        	showAlert(Alert.AlertType.ERROR, primaryStage.getScene().getWindow(), 
-				            "Form Error", "Username or Password is incorrect."+PlayerInfo.passCheck(TxUsername.getText()
-				            		));
+				            "Form Error", "Username or Password is incorrect."
+				            		);
 		        	return;
 		        }
 		        
 				if(Player.count!=2)	
 		        if(TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) && TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText())))
 					{
+						
+		        	if(TxUsername.getText().equals("admin") && TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText())))
+					{
 						showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
+						        "Login Successful!", "Welcome Mighty Admin! The rules of time are yours to play with!");
+						
+						if(Player.count==0)
+						{
+							Player.setUsername(TxUsername.getText());
+							Player.setLogin();
+							Player.setPriority();
+							Player.isAdmin=true;
+							Player.count++;
+							return;
+						}
+						
+						else if(Player.count==1)
+						{
+							Player2.setUsername(TxUsername.getText());
+							Player2.setLogin();
+							Player2.isAdmin=true;
+							Player.count++;
+							return;
+						}
+						
+						else if(Player.count==2)
+						{
+							showAlert(Alert.AlertType.ERROR,primaryStage.getScene().getWindow(),"Error","There are already 2 players signed in");
+							return;
+						}
+						
+					}
+		        	
+		        	
+		        	
+		        	showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
 						        "Login Successful!", "Welcome " + TxUsername.getText());
 						
 						//This lil bit sets the player's username to his login, marks that he is logged in, and randomly assigns him white or black
