@@ -26,7 +26,7 @@ public class SigninUI
 	}
 	
 		static File newFile = new File("reginfo.txt");
-		int count = 0;
+		//int count = 0;
 
 	//Creates or detects file used to store registration info.
 	public static void createData()
@@ -148,7 +148,7 @@ public class SigninUI
 		        	return;
 		        }
 		        
-				if(count!=2)	
+				if(Player.count!=2)	
 		        if(TxUsername.getText().equals(PlayerInfo.userCheck(TxUsername.getText())) && TxPassword.getText().equals(PlayerInfo.passCheck(TxUsername.getText())))
 					{
 						showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), 
@@ -156,25 +156,25 @@ public class SigninUI
 						
 						//This lil bit sets the player's username to his login, marks that he is logged in, and randomly assigns him white or black
 						
-						if(count==0)
+						if(Player.count==0)
 						{
 							Player.setUsername(TxUsername.getText());
 							Player.setLogin();
 							Player.setPriority();
-							count++;
+							Player.count++;
 							return;
 						}
 						
-						else if(count==1)
+						else if(Player.count==1)
 						{
 							Player2.setUsername(TxUsername.getText());
 							Player2.setLogin();
-							count++;
+							Player.count++;
 							return;
 						}
 					}
 				
-		        else if(count==2)
+		        else if(Player.count==2)
 				{
 					showAlert(Alert.AlertType.ERROR,primaryStage.getScene().getWindow(),"Error","There are already 2 players signed in");
 					return;
