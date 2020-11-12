@@ -113,7 +113,7 @@ public class RegisterUI
 		Button btBackReg = new Button("Back");
 
 		// Setting actions for buttons
-		btBackReg.setOnAction(e -> (new SigninUI()).start(primaryStage));
+		btBackReg.setOnAction(e -> (new ReversiApp()).start(primaryStage));
 		btSubmitReg.setOnAction(new EventHandler<ActionEvent>() {
 			//Handles the registration inputs
 			@Override

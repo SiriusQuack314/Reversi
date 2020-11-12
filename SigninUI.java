@@ -119,12 +119,12 @@ public class SigninUI
 
 		// Buttons
 		Button btLogin = new Button("Login");
-		Button btRegister = new Button("Register");
+	//	Button btRegister = new Button("Register");
 		Button btBack = new Button("Back");
 
 		// Setting actions for buttons
 		btBack.setOnAction(e -> (new ReversiApp()).start(primaryStage));
-		btRegister.setOnAction(e -> (new RegisterUI()).start(primaryStage));
+	//	btRegister.setOnAction(e -> (new RegisterUI()).start(primaryStage));
 		btLogin.setOnAction(new EventHandler<ActionEvent>() {
 			//Handles the login button press based on login info input.
 			@Override
@@ -192,7 +192,7 @@ public class SigninUI
 		
 		VBox paneRegister = new VBox(25); // the amount of vertical space between each child
 		paneRegister.setAlignment(Pos.CENTER);
-		paneRegister.getChildren().addAll(LbUsername, TxUsername, LbPassword, TxPassword, btLogin, btRegister, btBack);
+		paneRegister.getChildren().addAll(LbUsername, TxUsername, LbPassword, TxPassword, btLogin, btBack);
 
 		Scene sceneRegister = new Scene(paneRegister, 500, 500);
 		

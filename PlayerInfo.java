@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import sun.net.idn.StringPrep;
+//import sun.net.idn.StringPrep;
 
 public class PlayerInfo
 {	
