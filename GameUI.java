@@ -347,10 +347,10 @@ public class GameUI
 			}
 
 			Alert a1 = new Alert(AlertType.NONE, "BLACK HAS WON !", ButtonType.OK);
+			Timer.stop();
 			Optional<ButtonType> result = a1.showAndWait();
 			if (result.get() == ButtonType.OK)
 			{
-				Timer.stop();
 				beginningStage(primaryStage);
 			}
 		}
@@ -402,20 +402,20 @@ public class GameUI
 			}
 
 			Alert a1 = new Alert(AlertType.NONE, "WHITE HAS WON !", ButtonType.OK);
+			Timer.stop();
 			Optional<ButtonType> result = a1.showAndWait();
 			if (result.get() == ButtonType.OK)
 			{
-				Timer.stop();
 				beginningStage(primaryStage);
 			}
 		}
 		else if (Game.blackScore == Game.whiteScore)
 		{
 			Alert a1 = new Alert(AlertType.NONE, "IT'S A TIE !", ButtonType.OK);
+			Timer.stop();
 			Optional<ButtonType> result = a1.showAndWait();
 			if (result.get() == ButtonType.OK)
 			{
-				Timer.stop();
 				beginningStage(primaryStage);
 			}
 
