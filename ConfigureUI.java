@@ -1,3 +1,7 @@
+/*
+ * Class created by Mert Saritac
+ */
+
 import java.util.Optional;
 
 import javafx.application.Application;

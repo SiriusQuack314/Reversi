@@ -1,3 +1,6 @@
+/*
+ * Class created by Ann Chapple
+ */
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

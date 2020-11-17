@@ -1,3 +1,6 @@
+/*
+ * Class created by Nathan Sims with contributions from Brent Herbert
+ */
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,3 +1,7 @@
+/*
+ * Class created by Ann Chapple
+ */
+
 public class Board
 {
 	static Cell[][] board;

@@ -1,3 +1,6 @@
+/*
+* Class created by Gerard Taylor with contributions from Mert Saritac
+*/
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

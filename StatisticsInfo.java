@@ -1,3 +1,6 @@
+/*
+ * Class created by Brent Hebert
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

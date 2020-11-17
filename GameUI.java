@@ -1,3 +1,6 @@
+/*
+* Class created by Ann Chapple with contributions from Mert Saritac, Gerard Taylor, and Brent Hebert
+*/
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
@@ -35,6 +38,9 @@ public class GameUI
 		Application.launch(args);
 	}
 
+	/*
+	 * Method created by Ann Chapple
+	 */
 	public void start(Stage primaryStage) throws IOException
 	{
 		/*
@@ -52,6 +58,9 @@ public class GameUI
 
 	}
 
+	/*
+	 * Method created by Ann Chapple
+	 */
 	public static FlowPane showPlayers()
 	{
 		FlowPane panePlayers = new FlowPane();
@@ -161,6 +170,9 @@ public class GameUI
 		return panePlayers;
 	}
 
+	/*
+	 * Method created by Gerard Taylor & Mert Saritac
+	 */
 	private static FlowPane showTimers()
 	{
 		FlowPane paneTimer = new FlowPane();
@@ -171,9 +183,9 @@ public class GameUI
 		Label LbPlayer1 = new Label("Player1 Time"); // temp name
 		Label LbPlayer2 = new Label("Player2 Time"); // temp name
 
-		LbPlayer1Time = new Label("" + (Game.blackTime / (1000 * 60)) % 60 + "::" + (Game.blackTime / 1000) % 60); // temp
+		LbPlayer1Time = new Label("" + (Game.blackTime / (1000 * 60)) % 60 + ":" + (Game.blackTime / 1000) % 60); // temp
 																													// var
-		LbPlayer2Time = new Label("" + (Game.whiteTime / (1000 * 60)) % 60 + "::" + (Game.whiteTime / 1000) % 60); // temp
+		LbPlayer2Time = new Label("" + (Game.whiteTime / (1000 * 60)) % 60 + ":" + (Game.whiteTime / 1000) % 60); // temp
 																													// var
 
 		paneTimer.getChildren().addAll(LbPlayer1, LbPlayer1Time, LbPlayer2, LbPlayer2Time);
@@ -181,6 +193,9 @@ public class GameUI
 		return paneTimer;
 	}
 
+	/*
+	 * Method created by Ann Chapple
+	 */
 	public static GridPane showBoard()
 	{
 		GridPane paneBoard = new GridPane();
@@ -226,6 +241,8 @@ public class GameUI
 	}
 
 	/*
+	 * Method created by Ann Chapple
+	 *
 	 * This method refreshes the display of the board
 	 */
 	public static void refresh(Stage primaryStage)
@@ -295,6 +312,9 @@ public class GameUI
 
 	}
 
+	/*
+	 * Method created by Mert Saritac and Brent Hebert
+	 */
 	public static void showResults() throws FileNotFoundException, IOException
 	{
 		Button btBackToMain = new Button("Back To Main Screen");
@@ -421,6 +441,9 @@ public class GameUI
 		}
 	}
 
+	/*
+	 * Method created by Gerard Taylor and Brent Hebert
+	 */
 	public static void beginningStage(Stage primaryStage)
 	{
 		// Buttons
@@ -468,6 +491,9 @@ public class GameUI
 		primaryStage.show(); // Display the stage
 	}
 
+	/*
+	 * Method created by Brent Hebert
+	 */
 	public static void timeOut() throws FileNotFoundException, IOException
 	{
 

@@ -1,3 +1,6 @@
+/*
+ * Class created by Brent Hebert
+ */
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,17 +40,6 @@ public class Player2
 	public String getPassword()
 	{
 		return password;
-	}
-	
-	public void signIn(String username, String password)
-	{
-		//TO DO
-		//include way to recognize if they are an admin, and set isAdmin to true
-	}
-	
-	public void register(String username, String password)
-	{
-		//TO DO
 	}
 	
 	public static void setPriority()

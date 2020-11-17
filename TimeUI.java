@@ -1,4 +1,6 @@
-  
+ /*
+ * Class created by Mert Saritac and Brent Hebert
+ */ 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -26,8 +28,6 @@ public class TimeUI
 	{
 		Application.launch(args);
 	}
-	
-		
 	
 	public void start(Stage primaryStage)
 	{
